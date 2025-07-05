@@ -42,3 +42,13 @@ public class RockData
         return val >= rockCount;
     }
 }
+
+public enum RockType
+{
+    Volcanis,
+    Xylora,
+    Cryon,
+    Droska,
+    Zenthra,
+    Prime
+}

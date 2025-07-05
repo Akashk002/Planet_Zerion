@@ -26,5 +26,5 @@ public class EnemySpaceCraftService
         enemySpaceCraftController.Configure(initialPos, targetPos);
     }
 
-    public void ReturnDefenderPool(EnemySpaceCraftController enemySpaceCraftController) => enemySpaceCraftPool.ReturnItem(enemySpaceCraftController);
+    public void ReturnEnemySpaceCraftPool(EnemySpaceCraftController enemySpaceCraftController) => enemySpaceCraftPool.ReturnItem(enemySpaceCraftController);
 }

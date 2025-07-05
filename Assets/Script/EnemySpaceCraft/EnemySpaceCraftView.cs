@@ -30,11 +30,40 @@ public class EnemySpaceCraftView : MonoBehaviour
         while (true)
         {
             Transform initialTrans = shootPoints[Random.Range(0, shootPoints.Count)];
-            Vector3 targetPos = GameService.Instance.buildingManager.GetRandomBuildingPos();
+
+            Vector3 targetPos;
+
+            // First, check if player is within 100 meters
+            SpacecraftController spacecraftController = GameService.Instance.spacecraftService.GetSpacecraftController(); // Assumes a method that returns the player's transform
+            if (spacecraftController != null)
+            {
+                float distanceToPlayer = Vector3.Distance(transform.position, spacecraftController.GetPos());
+
+                Debug.Log($"Distance to player: {distanceToPlayer}");
+
+                if (distanceToPlayer <= 500f)
+                {
+                    // Target the player
+                    targetPos = spacecraftController.GetPos();
+                }
+                else
+                {
+                    // Target a building instead
+                    targetPos = GameService.Instance.buildingManager.GetRandomBuildingPos();
+                }
+            }
+            else
+            {
+                // Fallback: target a building if player reference is missing
+                targetPos = GameService.Instance.buildingManager.GetRandomBuildingPos();
+            }
+
             enemySpaceCraftController.Shoot(initialTrans, targetPos);
+
             yield return new WaitForSeconds(shootInterval);
         }
     }
+
 
 
     private void OnDisable()
@@ -43,8 +72,17 @@ public class EnemySpaceCraftView : MonoBehaviour
             StopCoroutine(shootCoroutine);
     }
 
-    internal void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
+        enemySpaceCraftController.TakeDamage(damage);
+    }
 
+    public void Die()
+    {
+        if (shootCoroutine != null)
+        {
+            StopCoroutine(shootCoroutine);
+            shootCoroutine = StartCoroutine(ShootLoop());
+        }
     }
 }

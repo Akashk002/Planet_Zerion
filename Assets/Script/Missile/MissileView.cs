@@ -20,8 +20,6 @@ public class MissileView : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Missile Triiger: " + other.gameObject.name);
-
         EnemySpaceCraftView enemySpaceCraftView;
 
         if (other.gameObject.TryGetComponent(out enemySpaceCraftView))

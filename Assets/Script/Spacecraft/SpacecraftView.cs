@@ -31,24 +31,17 @@ public class SpacecraftView : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log($"Collision with {collision.gameObject.name} at {collision.relativeVelocity.magnitude} m/s");
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Trigger entered with {other.gameObject.name}");
-        if (GetComponent<LandingZone>())
+        if (other.GetComponent<LandingZone>())
         {
             UIManager.Instance.spacecraftPanel.ToggleBackToRoomBtn(true);
-            controller.Reset();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (GetComponent<LandingZone>())
+        if (other.GetComponent<LandingZone>())
         {
             UIManager.Instance.spacecraftPanel.ToggleBackToRoomBtn(false);
         }

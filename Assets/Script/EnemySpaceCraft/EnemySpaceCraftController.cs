@@ -12,6 +12,7 @@ public class EnemySpaceCraftController
     private bool isTargetReached = false;
     private bool isMoving = false;
     private AudioSource audioSource;
+    private int currentHealth;
 
     public EnemySpaceCraftController(EnemySpaceCraftScriptable enemySpaceCraftScriptable)
     {
@@ -28,6 +29,7 @@ public class EnemySpaceCraftController
 
         LookAtTarget();
         isMoving = true;
+        currentHealth = (int)enemySpaceCraftScriptable.health;
     }
 
     public void Update()
@@ -84,7 +86,24 @@ public class EnemySpaceCraftController
 
     internal void TakeDamage(float damage)
     {
-        throw new System.NotImplementedException();
+        currentHealth -= (int)damage;
+
+        Debug.Log($"Enemy Spacecraft took damage: {damage}. Current Health: {currentHealth}");
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Enemy Spacecraft died.");
+        enemySpaceCraftView.Die();
+        isMoving = false;
+        GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.MissileBlastBig, enemySpaceCraftView.transform.position);
+        GameService.Instance.VFXService.PlayVFXAtPosition(VFXType.MissileExplosionGround, enemySpaceCraftView.transform.position);
+        GameService.Instance.enemySpaceCraftService.ReturnEnemySpaceCraftPool(this);
+        Deactivate();
     }
 
     public void Activate()

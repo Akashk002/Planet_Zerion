@@ -13,7 +13,7 @@ public class BuildingManager : MonoBehaviour
     {
         buildingsDamage += val;
 
-        Debug.Log($"Building damage added: {val}. Total damage: {buildingsDamage}");
+        //Debug.Log($"Building damage added: {val}. Total damage: {buildingsDamage}");
 
         if (buildingsDamage >= 1000)
         {

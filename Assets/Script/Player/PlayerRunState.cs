@@ -6,7 +6,6 @@ public class PlayerRunState : IStatePlayer
 {
     public PlayerController Owner { get; set; }
     private IStateMachinePlayer stateMachine;
-    private AudioSource audioSource;
     public PlayerRunState(IStateMachinePlayer stateMachine) => this.stateMachine = stateMachine;
 
     public void OnStateEnter()
@@ -18,14 +17,16 @@ public class PlayerRunState : IStatePlayer
     {
         if (Owner.GetMoveSpeed() > 0)
         {
+            if (Owner.runAudioSource == null || !Owner.runAudioSource.isPlaying)
+                Owner.runAudioSource = GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.PlayerRun, Owner.GetPos());
+            else
+                Owner.runAudioSource.transform.position = Owner.GetPos();
+
             if (Owner.GetMoveSpeed() <= Owner.GetPlayerScriptable().walkSpeed)
             {
+                Owner.runAudioSource.Stop();
                 stateMachine.ChangeState(PlayerStates.Walk);
             }
-            if (audioSource == null || !audioSource.isPlaying)
-                audioSource = GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.PlayerRun, Owner.GetPos());
-            else
-                audioSource.transform.position = Owner.GetPos();
         }
         else
         {
@@ -35,6 +36,7 @@ public class PlayerRunState : IStatePlayer
 
     public void OnStateExit()
     {
+        Owner.runAudioSource.Stop();
         Owner.GetPlayerAnimator().SetBool("isRunning", false);
     }
 }

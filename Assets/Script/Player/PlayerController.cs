@@ -15,8 +15,8 @@ public class PlayerController
     private State state;
     private int rockCount;
     public bool IsInteracted;
-
     private LTDescr tireNessleenTween;
+    public AudioSource walkAudioSource, runAudioSource;
 
     public PlayerController(PlayerView playerPrefab, PlayerScriptable playerScriptable)
     {
@@ -110,6 +110,8 @@ public class PlayerController
         state = State.deactivate;
         playerView.gameObject.SetActive(false);
         playerView.cam.Priority = 0;
+        walkAudioSource.Stop();
+        runAudioSource.Stop();
     }
 
     public void AddRock(RockType rockType)
@@ -125,16 +127,6 @@ public class PlayerController
         {
             UIManager.Instance.GetInfoHandler().ShowInstruction(InstructionType.BagFull);
         }
-    }
-
-    private int GetTotalRock()
-    {
-        int totalCount = 0;
-        foreach (var rockData in playerScriptable.rockDatas)
-        {
-            totalCount += rockData.rockCount;
-        }
-        return totalCount;
     }
 
     public void CarryBagPack()
@@ -173,4 +165,37 @@ public class PlayerController
     {
         return playerView.transform.position;
     }
+
+    public void SpendRock(int rockRequire)
+    {
+        int remaining = rockRequire;
+
+        foreach (var rockData in playerScriptable.rockDatas)
+        {
+            if (remaining <= 0) break;
+
+            int spendAmount = Mathf.Min(rockData.rockCount, remaining);
+            rockData.SpendRock(spendAmount);
+            remaining -= spendAmount;
+
+            UIManager.Instance.playerPanel.SetRockCount(rockData.RockType, rockData.rockCount);
+        }
+
+        if (remaining > 0)
+        {
+            Debug.LogWarning("Not enough total rocks to spend the required amount!");
+            // Optionally: rollback if partial spending is not allowed
+        }
+    }
+
+    public int GetTotalRock()
+    {
+        int totalCount = 0;
+        foreach (var rockData in playerScriptable.rockDatas)
+        {
+            totalCount += rockData.rockCount;
+        }
+        return totalCount;
+    }
+
 }

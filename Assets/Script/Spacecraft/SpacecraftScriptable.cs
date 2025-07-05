@@ -29,8 +29,7 @@ public class SpacecraftScriptable : ScriptableObject
 
     [Header("Purchase Data")]
     public SpacecraftStatus spacecraftStatus = SpacecraftStatus.Locked;
-    public int Xylora_Rocks = 2;
-    public int Prime_Rocks = 2;
+    public int rocksRequire = 2;
 }
 
 [System.Serializable]

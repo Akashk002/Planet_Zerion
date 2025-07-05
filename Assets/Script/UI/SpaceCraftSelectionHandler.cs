@@ -17,7 +17,6 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
     [SerializeField] private SliderAndText maxRange;
     [SerializeField] private SliderAndText maxCapacity;
 
-
     [Header("Missile Data")]
     [SerializeField] private Image missileImage;
     [SerializeField] private TextMeshProUGUI missileName;
@@ -28,8 +27,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
     [SerializeField] private Button selectButton;
     [SerializeField] TextMeshProUGUI spaceCraftStatus;
     [SerializeField] private GameObject costPanel;
-    [SerializeField] TextMeshProUGUI xyloraCount;
-    [SerializeField] TextMeshProUGUI primeCount;
+    [SerializeField] TextMeshProUGUI rockCount;
 
     private List<SpacecraftData> spacecraftData;
     private List<MissileData> missileData;
@@ -80,6 +78,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
         maxSpeed.SetValue((int)spacecraftScriptable.maxSpeed);
         maxRange.SetValue(spacecraftScriptable.maxRange);
         maxCapacity.SetValue(spacecraftScriptable.missileCapacity);
+
         SetSelectButtonText();
         SetMissileData(spacecraftScriptable.missileType);
     }
@@ -102,8 +101,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
         {
             spaceCraftStatus.enabled = false;
             costPanel.SetActive(true);
-            xyloraCount.text = spacecraftData[SpaceCraftIndex].spacecraftScriptable.Xylora_Rocks.ToString();
-            primeCount.text = spacecraftData[SpaceCraftIndex].spacecraftScriptable.Prime_Rocks.ToString();
+            rockCount.text = spacecraftData[SpaceCraftIndex].spacecraftScriptable.rocksRequire.ToString();
         }
         else
         {
@@ -116,18 +114,21 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
 
     private bool CanPuchase()
     {
-        int playerXyloraCount = GameService.Instance.GetPlayerScriptable().rockDatas.Find(x => x.RockType == RockType.Xylora).rockCount;
-        int playerPrimeCount = GameService.Instance.GetPlayerScriptable().rockDatas.Find(x => x.RockType == RockType.Prime).rockCount;
-        int XyloraCount = spacecraftScriptable.Xylora_Rocks;
-        int PrimeCount = spacecraftScriptable.Prime_Rocks;
+        int playerRockCount = GameService.Instance.playerService.GetPlayerController().GetTotalRock();
+        int rockRequire = spacecraftScriptable.rocksRequire;
 
-        if (playerXyloraCount >= XyloraCount && playerPrimeCount >= PrimeCount)
+        if (playerRockCount >= rockRequire)
         {
             return true;
         }
 
         return true;
         // return false;
+    }
+    private void SpendRock()
+    {
+        int rockRequire = spacecraftScriptable.rocksRequire;
+        GameService.Instance.playerService.GetPlayerController().SpendRock(rockRequire);
     }
 
     private void Select()
@@ -148,6 +149,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
         if (spacecraftScriptable.spacecraftStatus == SpacecraftStatus.Unlocked || spacecraftScriptable.spacecraftStatus == SpacecraftStatus.Locked && CanPuchase())
         {
             Select();
+            SpendRock();
             GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.Select, transform.position);
         }
     }
@@ -176,8 +178,12 @@ public struct SliderAndText
     public Slider slider;
     public TextMeshProUGUI text;
 
-    public void SetValue(int value)
+    public void SetValue(int value, int maxValue = -1)
     {
+        if (maxValue != -1)
+        {
+            slider.maxValue = value;
+        }
         slider.value = value;
         text.text = value.ToString();
     }

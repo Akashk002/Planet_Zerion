@@ -13,6 +13,8 @@ public class SpaceCraftUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI altitudeTxt;
     [SerializeField] private TextMeshProUGUI missileCountTxt;
     [SerializeField] private Button backToRoomBtn;
+    [SerializeField] private Button refuelBtn;
+    [SerializeField] private Button reloadBtn;
     private int maxMissile;
     private int maxRange;
 
@@ -27,6 +29,15 @@ public class SpaceCraftUIManager : MonoBehaviour
         maxSpeedTxt.SetText(spacecraftScriptable.maxSpeed.ToString());
         maxMissile = (spacecraftScriptable.missileCapacity);
         maxRange = spacecraftScriptable.maxRange;
+    }
+
+    private void OnEnable()
+    {
+        ToggleBackToRoomBtn(true);
+        SetMissileCount(maxMissile);
+        SetRangeRemaining(maxRange);
+        SetAltitude(0); // Assuming initial altitude is 0
+        SetSpeed(0); // Assuming initial speed is 0
     }
 
     public void SetMissileCount(int value)
@@ -57,8 +68,25 @@ public class SpaceCraftUIManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void Refuel()
+    {
+        spacecraftController.Refuel();
+        GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
+        refuelBtn.interactable = false;
+    }
+    public void ReloadMissile()
+    {
+        spacecraftController.ReloadMissile();
+        GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
+        reloadBtn.interactable = false;
+    }
+
     public void ToggleBackToRoomBtn(bool enable)
     {
+        reloadBtn.interactable = true;
+        refuelBtn.interactable = true;
         backToRoomBtn.gameObject.SetActive(enable);
+        refuelBtn.gameObject.SetActive(enable);
+        reloadBtn.gameObject.SetActive(enable);
     }
 }

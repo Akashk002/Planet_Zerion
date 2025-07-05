@@ -88,10 +88,8 @@ public class AudioManager : MonoBehaviour
     // ⏹ Stop a specific sound manually
     public void StopSound(AudioSource source)
     {
-        Debug.Log($"Stopping sound: {source.clip.name} at position {source.transform.position}");
         if (source != null && source.isPlaying)
         {
-            Debug.Log($"Stopping sound: {source.clip.name}");
             source.Stop();
             ReturnSource(source);
 

@@ -40,6 +40,7 @@ public class ResourceWarehouseRoomPanel : MonoBehaviour
     {
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
         buildingtIndex++;
+
         if (buildingtIndex >= buildingDatas.Count)
         {
             buildingtIndex = 0;
@@ -97,6 +98,7 @@ public class ResourceWarehouseRoomPanel : MonoBehaviour
         {
             buildingScriptable.buildingState = BuildingState.Unlocked;
             GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.Select, transform.position);
+            SetSelectButtonText();
         }
     }
 

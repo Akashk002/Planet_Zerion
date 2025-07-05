@@ -54,7 +54,7 @@ public class Entrance : MonoBehaviour, IInteractable
             return true;
         }
 
-        return true;
+        return false;
     }
 
     public void EnterRoom()

@@ -21,13 +21,3 @@ public class Rock : MonoBehaviour, IInteractable
         return rockType + " Rock";
     }
 }
-
-public enum RockType
-{
-    Volcanis,
-    Xylora,
-    Cryon,
-    Droska,
-    Zenthra,
-    Prime
-}

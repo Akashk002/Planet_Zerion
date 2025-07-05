@@ -94,17 +94,16 @@ public class SpacecraftController
         if (Input.GetKey(KeyCode.A))
         {
             moveDirection += spacecraftView.transform.up * spacecraftSO.verticalSpeed;
-            spaceCraftUIManager.SetAltitude((int)spacecraftView.transform.position.y);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             moveDirection -= spacecraftView.transform.up * spacecraftSO.verticalSpeed;
-            spaceCraftUIManager.SetAltitude((int)spacecraftView.transform.position.y);
         }
 
         // --- Apply Velocity ---
         spacecraftView.rb.velocity = moveDirection;
+        spaceCraftUIManager.SetAltitude((int)spacecraftView.transform.position.y);
 
         if (moveDirection != Vector3.zero)
         {
@@ -128,7 +127,7 @@ public class SpacecraftController
 
 
         // --- Rotation by Mouse ---
-        if (isRotating || Input.GetMouseButton(0))
+        if (isRotating || Input.GetMouseButton(1))
         {
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
@@ -157,19 +156,6 @@ public class SpacecraftController
         state = State.deactivate;
         spacecraftView.cam.Priority = 0;
         spacecraftView.EnableBoosterVFX(false);
-    }
-
-    public void Reset()
-    {
-        Deactivate();
-        Debug.Log("Resetting spacecraft controller");
-        spacecraftView.transform.position = initialTransform.position;
-        spacecraftView.transform.rotation = initialTransform.rotation;
-        yaw = initialTransform.eulerAngles.y;
-        pitch = initialTransform.eulerAngles.x;
-        moveSpeed = 0f;
-        isRotating = false;
-        Activate();
     }
 
     internal void TakeDamage(float damage)
@@ -203,38 +189,31 @@ public class SpacecraftController
         }
     }
 
-
-    public float GetCurrentSpeed()
-    {
-        return moveSpeed;
-    }
-
-    public float GetMissileCount()
-    {
-        return missileCount;
-    }
-
     internal SpacecraftScriptable GetSpacecraftScriptable()
     {
         return spacecraftSO;
     }
 
-    public int GetCurrentRange()
-    {
-        return (int)range;
-    }
-
-    public int GetCurrentAltitude()
-    {
-        if (spacecraftView)
-        {
-            return (int)spacecraftView.transform.position.y;
-        }
-        return 0;
-    }
 
     internal void Destroy()
     {
         SpacecraftView.Destroy(spacecraftView.gameObject);
+    }
+
+    public void Refuel()
+    {
+        range = spacecraftSO.maxRange;
+        spaceCraftUIManager.SetRangeRemaining((int)range);
+    }
+
+    public void ReloadMissile()
+    {
+        missileCount = spacecraftSO.missileCapacity;
+        spaceCraftUIManager.SetMissileCount((int)missileCount);
+    }
+
+    internal Vector3 GetPos()
+    {
+        return spacecraftView.transform.position;
     }
 }
