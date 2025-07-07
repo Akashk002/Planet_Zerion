@@ -88,8 +88,15 @@ public class ResourceWarehouseRoomPanel : MonoBehaviour
 
     private bool CanPuchase()
     {
+        int playerRockCount = GameService.Instance.playerController.GetTotalRock();
+        int rockRequire = buildingScriptable.rockRequire;
+
+        if (playerRockCount >= rockRequire)
+        {
+            return true;
+        }
+
         return true;
-        // return false;
     }
 
     private void OnSelectButtonClicked()

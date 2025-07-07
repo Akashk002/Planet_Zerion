@@ -114,7 +114,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
 
     private bool CanPuchase()
     {
-        int playerRockCount = GameService.Instance.playerService.GetPlayerController().GetTotalRock();
+        int playerRockCount = GameService.Instance.playerController.GetTotalRock();
         int rockRequire = spacecraftScriptable.rocksRequire;
 
         if (playerRockCount >= rockRequire)
@@ -128,7 +128,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
     private void SpendRock()
     {
         int rockRequire = spacecraftScriptable.rocksRequire;
-        GameService.Instance.playerService.GetPlayerController().SpendRock(rockRequire);
+        GameService.Instance.playerController.SpendRock(rockRequire);
     }
 
     private void Select()

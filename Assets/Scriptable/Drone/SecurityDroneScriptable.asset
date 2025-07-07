@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droneType: 1
   droneView: {fileID: 558873421579425462, guid: ce5a30d1989438848813f24e78003989, type: 3}
-  droneBattery: 100
+  droneBattery: 99.99867
   droneBatteryDecRate: 0.00001
   droneBatteryChargingTime: 30
   maxSpeed: 100
-  verticalSpeed: 10
+  verticalSpeed: 25
   AccelerationSpeed: 0.1
   rotationSpeed: 50
   mouseSensitivity: 1.5

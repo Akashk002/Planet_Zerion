@@ -15,7 +15,7 @@ public class PlayerIdleState : IStatePlayer
     {
         if (Owner.GetMoveSpeed() > 0)
         {
-            if (Owner.GetMoveSpeed() > Owner.GetPlayerScriptable().walkSpeed)
+            if (Owner.GetMoveSpeed() > Owner.GetPlayerWalkSpeed())
             {
                 stateMachine.ChangeState(PlayerStates.Run);
             }

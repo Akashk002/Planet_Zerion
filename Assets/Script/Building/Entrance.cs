@@ -38,6 +38,11 @@ public class Entrance : MonoBehaviour, IInteractable
         return SplitCamelCase(entranceBuildingType + " Entrance");
     }
 
+    public BuildingType GetEntranceBuildingType()
+    {
+        return entranceBuildingType;
+    }
+
     public static string SplitCamelCase(string input)
     {
         return System.Text.RegularExpressions.Regex.Replace(
@@ -63,7 +68,7 @@ public class Entrance : MonoBehaviour, IInteractable
         {
 
             roomPanel.SetActive(true);
-            GameService.Instance.playerService.GetPlayerController().Deactivate();
+            GameService.Instance.playerController.Deactivate();
             playerEntered = true;
             GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.EnterRoom, transform.position);
 
@@ -82,7 +87,7 @@ public class Entrance : MonoBehaviour, IInteractable
     public void ExitRoom()
     {
         roomPanel.SetActive(false);
-        GameService.Instance.playerService.GetPlayerController().Activate();
+        GameService.Instance.playerController.Activate();
         playerEntered = false;
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ExitRoom, transform.position);
 

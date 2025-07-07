@@ -13,11 +13,12 @@ public class BuildingManager : MonoBehaviour
     {
         buildingsDamage += val;
 
-        //Debug.Log($"Building damage added: {val}. Total damage: {buildingsDamage}");
+        int percentage = buildingsDamage / 10;
+        UIManager.Instance.ShowWarning(percentage);
 
         if (buildingsDamage >= 1000)
         {
-            Debug.LogWarning("Buildings are damaged beyond repair!");
+            UIManager.Instance.ShowMissionFailedPanel();
         }
     }
 

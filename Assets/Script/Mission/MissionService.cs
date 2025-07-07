@@ -20,7 +20,6 @@ public class MissionService
     public MissionService(List<MissionData> missionDatas)
     {
         this.missionDatas = missionDatas;
-        Debug.Log("MissionService initialized with " + missionDatas.Count + " missions.");
         LoadMission(currentMissionIndex);
     }
 
@@ -34,36 +33,28 @@ public class MissionService
         missionCompleted = false;
         startTimer = currentMission.waveStartDelay;
 
-        Debug.Log($"Loading Mission: {currentMission.missionName} (Index: {index})");
-
         UnlockBuildings();
         UnlockSpacecrafts();
 
         // Show panel
         UIManager.Instance.ShowMissionStartPanel(currentMission.missionName, currentMission.missionDescription);
-        Debug.Log($"Mission panel shown: {currentMission.missionName} - {currentMission.missionDescription}");
     }
 
     public void Update()
     {
-        Debug.Log("MissionService Update called.");
-
         if (!missionStarted || missionCompleted)
             return;
 
         if (!spawningStarted)
         {
             startTimer -= Time.deltaTime;
-            Debug.Log($"Start Timer: {startTimer}");
             if (startTimer <= 0f)
             {
                 spawningStarted = true;
-                Debug.Log($"Spawning started for mission: {currentMission.missionName}");
             }
         }
         else
         {
-            Debug.Log($"Spawning enemies for mission: {currentMission.missionName}, Current Enemy Index: {currentEnemyIndex}");
             HandleEnemySpawning();
             CheckMissionCompletion();
         }
@@ -72,13 +63,9 @@ public class MissionService
     private void HandleEnemySpawning()
     {
         spawnTimer += Time.deltaTime;
-
-        Debug.Log($"Spawn Timer: {spawnTimer}, Current Enemy Index: {currentEnemyIndex}, Total Enemies: {currentMission.enemySpaceCraftSpawnList.Count}");
-
         if (currentEnemyIndex < currentMission.enemySpaceCraftSpawnList.Count &&
             spawnTimer >= currentMission.spawnRate)
         {
-            Debug.Log($"Spawning enemy: {currentMission.enemySpaceCraftSpawnList[currentEnemyIndex]}");
             var enemyType = currentMission.enemySpaceCraftSpawnList[currentEnemyIndex];
 
             SpawnPointData spawnPoint = GameService.Instance.spawnPoints.GetspawnPoint();
@@ -87,11 +74,6 @@ public class MissionService
             if (enemySpaceCraftController != null)
             {
                 enemySpaceCraftControllers.Add(enemySpaceCraftController);
-                Debug.Log($"Enemy spawned: {enemyType} at {spawnPoint.initialTransform.position}");
-            }
-            else
-            {
-                Debug.LogWarning($"Failed to spawn enemy: {enemyType}");
             }
 
             currentEnemyIndex++;
@@ -104,15 +86,12 @@ public class MissionService
         if (currentEnemyIndex >= currentMission.enemySpaceCraftSpawnList.Count && CheckAllEnemyDied())
         {
             missionCompleted = true;
-            Debug.Log($"Mission completed: {currentMission.missionName}");
 
             if (currentMissionIndex >= missionDatas.Count - 1)
             {
-                Debug.Log("All missions completed. Showing game complete panel.");
                 UIManager.Instance.ShowGameCompletePanelWithDelay(3);
                 return;
             }
-            Debug.Log("Showing mission complete panel.");
             UIManager.Instance.ShowMissionCompletePanelWithDelay(3);
         }
     }
@@ -123,7 +102,6 @@ public class MissionService
         {
             if (enemySpaceCraftControllers[i].IsDead())
             {
-                Debug.Log($"Enemy destroyed: {enemySpaceCraftControllers[i].enemySpaceCraftType}");
                 enemySpaceCraftControllers.RemoveAt(i);
             }
         }
@@ -133,7 +111,6 @@ public class MissionService
     public void StartNextMission()
     {
         currentMissionIndex++;
-        Debug.Log($"Starting next mission. Index: {currentMissionIndex}");
         LoadMission(currentMissionIndex);
     }
 
@@ -142,7 +119,6 @@ public class MissionService
         foreach (var buildingTypes in currentMission.buildingUnlockList)
         {
             GameService.Instance.buildingManager.SetBuildingAvilable(buildingTypes);
-            Debug.Log($"Building unlocked: {buildingTypes}");
         }
     }
 
@@ -152,7 +128,6 @@ public class MissionService
         {
             SpacecraftScriptable spacecraftScriptable = GameService.Instance.GetSpacecraftDatas().Find(x => x.spacecraftScriptable.spacecraftType == spacecraftType).spacecraftScriptable;
             spacecraftScriptable.spacecraftStatus = SpacecraftStatus.Locked;
-            Debug.Log($"Spacecraft unlocked: {spacecraftType}");
         }
     }
 }

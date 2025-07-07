@@ -12,10 +12,10 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private List<MissionData> missionDatas = new List<MissionData>();
     [SerializeField] private VFXView VFXPrefab;
 
-    public BuildingManager buildingManager { get; private set; }
-    public AudioManager audioManager { get; private set; }
-    public SpawnPoints spawnPoints { get; private set; }
-    public PlayerService playerService { get; private set; }
+    public BuildingManager buildingManager;
+    public AudioManager audioManager;
+    public SpawnPoints spawnPoints;
+    public PlayerController playerController { get; private set; }
     public DroneService droneService { get; private set; }
     public SpacecraftService spacecraftService { get; private set; }
     public EnemySpaceCraftService enemySpaceCraftService { get; private set; }
@@ -27,7 +27,7 @@ public class GameService : GenericMonoSingleton<GameService>
     void Start()
     {
         missionService = new MissionService(missionDatas);
-        playerService = new PlayerService(playerView, PlayerScriptable);
+        playerController = new PlayerController(playerView, PlayerScriptable);
         droneService = new DroneService(droneDatas);
         spacecraftService = new SpacecraftService();
         enemySpaceCraftService = new EnemySpaceCraftService(enemySpaceCraftDatas);

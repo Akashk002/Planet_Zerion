@@ -25,6 +25,16 @@ public class PlayerUIManager : MonoBehaviour
         rockUIData.SetText(Val);
     }
 
+    public void UpdateRockCount()
+    {
+        List<RockData> rockDatas = GameService.Instance.playerController.GetRockDatas();
+        foreach (var rockData in rockDatas)
+        {
+            RockUIData rockUIData = rockUIDatas.Find(data => data.rockType == rockData.RockType);
+            rockUIData.SetText(rockData.rockCount);
+        }
+    }
+
     public void SetTiredness(float value, float maxValue)
     {
         tirednessSlider.maxValue = maxValue;
@@ -34,7 +44,7 @@ public class PlayerUIManager : MonoBehaviour
     public void TakeRest()
     {
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
-        GameService.Instance.playerService.GetPlayerController().TakeRest();
+        GameService.Instance.playerController.TakeRest();
     }
 
     public void ToggleBagPack()
@@ -45,7 +55,7 @@ public class PlayerUIManager : MonoBehaviour
             stoneInfoPanel.gameObject.SetActive(!stoneInfoPanel.gameObject.activeSelf);
             bagPackButton.targetGraphic.color = stoneInfoPanel.gameObject.activeSelf ? new Color(1, 1, 1, 0.5f) : Color.white;
             bagPackText.text = stoneInfoPanel.gameObject.activeSelf ? "Click to drop the bag" : "Click to get the bag";
-            GameService.Instance.playerService.GetPlayerController().CarryBagPack();
+            GameService.Instance.playerController.CarryBagPack();
         }
     }
 }

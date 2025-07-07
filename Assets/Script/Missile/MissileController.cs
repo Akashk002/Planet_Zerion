@@ -43,6 +43,7 @@ public class MissileController : MonoBehaviour
 
         enableTurning = turnEnabled;
 
+        launchTime = 0f;
         timeSinceLaunch = 0f;
         isTargetReached = false;
 
@@ -98,16 +99,5 @@ public class MissileController : MonoBehaviour
         Vector3 dir = (targetPosition - missileView.transform.position).normalized;
         missileView.transform.position += dir * missileScriptable.moveSpeed * Time.deltaTime;
         missileView.transform.rotation = Quaternion.LookRotation(dir);
-
-        //if (!isTargetReached && Vector3.Distance(missileView.transform.position, targetPosition) < 0.1f)
-        //{
-        //    isTargetReached = true;
-        //    isTracking = false;
-        //}
-    }
-
-    public int GetdamageValue()
-    {
-        throw new System.NotImplementedException();
     }
 }

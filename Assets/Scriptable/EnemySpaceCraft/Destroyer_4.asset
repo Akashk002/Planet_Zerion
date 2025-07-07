@@ -17,4 +17,4 @@ MonoBehaviour:
   missileType: 7
   health: 100
   moveSpeed: 100
-  fireRate: 3
+  fireRate: 6

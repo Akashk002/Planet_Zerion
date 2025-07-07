@@ -32,6 +32,7 @@ public class EnemySpaceCraftController
         LookAtTarget();
         isMoving = true;
         currentHealth = (int)enemySpaceCraftScriptable.health;
+        isTargetReached = false;
     }
 
     public void Update()
@@ -101,7 +102,6 @@ public class EnemySpaceCraftController
     {
         Debug.Log("Enemy Spacecraft died.");
         enemySpaceCraftView.Die();
-        isMoving = false;
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.MissileBlastBig, enemySpaceCraftView.transform.position);
         GameService.Instance.VFXService.PlayVFXAtPosition(VFXType.MissileExplosionGround, enemySpaceCraftView.transform.position);
         GameService.Instance.enemySpaceCraftService.ReturnEnemySpaceCraftPool(this);

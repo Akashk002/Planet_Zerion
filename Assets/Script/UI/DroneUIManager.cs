@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEditor;
 
 public class DroneUIManager : MonoBehaviour
 {
@@ -14,39 +15,60 @@ public class DroneUIManager : MonoBehaviour
     [SerializeField] private Button ToggleSurveillanceButton;
     [SerializeField] private TextMeshProUGUI ToggleSurveillanceButtonText;
     [SerializeField] private Slider batterySlider;
-    public DroneScriptable currentDroneScriptable;
+    [SerializeField] private Button takeRocksButton;
+    [SerializeField] private TextMeshProUGUI altitudeText;
+    [SerializeField] private TextMeshProUGUI warningText;
+    [SerializeField] private string altitudeWarning;
+    [SerializeField] private string takeRockWarning;
+    private DroneScriptable currentDroneScriptable;
+    private int altitude = 0;
+    public int SurveillanceAltitude = 200;
 
     private void Start()
     {
         switchDroneButton.onClick.AddListener(SwitchDrone);
         ToggleSurveillanceButton.onClick.AddListener(ToggleSurveillanceMode);
+        takeRocksButton.onClick.AddListener(TakeRocks);
     }
 
-    private void FixedUpdate()
+    public void SetDroneScriptable(DroneScriptable droneScriptable)
     {
-        UpdateDroneBattery();
+        currentDroneScriptable = droneScriptable;
     }
 
-    public void SetRockCount(RockType rockType, int Val)
+    public void UpdateRockCount()
     {
-        RockUIData rockUIData = rockUIDatas.Find(data => data.rockType == rockType);
-        rockUIData.SetText(Val);
+        List<RockData> rockDatas = currentDroneScriptable.rockDatas;
+        foreach (var rockData in rockDatas)
+        {
+            RockUIData rockUIData = rockUIDatas.Find(data => data.rockType == rockData.RockType);
+            rockUIData.SetText(rockData.rockCount);
+        }
     }
 
     private void SwitchDrone()
     {
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
         GameService.Instance.droneService.SwitchDrone();
-        stoneInfoPanel.gameObject.SetActive(currentDroneScriptable.droneType == DroneType.CarrierDrone);
         ToggleSurveillanceButton.gameObject.SetActive(currentDroneScriptable.droneType == DroneType.SecurityDrone);
+        takeRocksButton.gameObject.SetActive(currentDroneScriptable.droneType != DroneType.SecurityDrone);
+        stoneInfoPanel.gameObject.SetActive(currentDroneScriptable.droneType != DroneType.SecurityDrone);
         UpdateSwitchDroneButtonText();
     }
 
     public void ToggleSurveillanceMode()
     {
-        GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
-        GameService.Instance.droneService.GetDroneController().ToggleDroneSurveillanceState();
-        UpdateToggleSurveillanceButtonText();
+        if (altitude >= SurveillanceAltitude)
+        {
+            GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
+            GameService.Instance.droneService.GetDroneController().ToggleDroneSurveillanceState();
+            UpdateToggleSurveillanceButtonText();
+        }
+        else
+        {
+            EnableWarningText(altitudeWarning);
+        }
+
     }
 
     private void UpdateSwitchDroneButtonText()
@@ -57,13 +79,45 @@ public class DroneUIManager : MonoBehaviour
     {
         DroneState droneState = GameService.Instance.droneService.GetDroneController().GetDroneState();
         ToggleSurveillanceButtonText.SetText((droneState != DroneState.Surveillance) ? "Turn On Surveillance Mode" : "Turn Off Surveillance Mode");
+
     }
 
-    public void UpdateDroneBattery()
+    private void EnableWarningText(string str)
     {
-        if (currentDroneScriptable)
+        warningText.SetText(str);
+        warningText.enabled = true;
+        Invoke(nameof(DisableWarningText), 3);
+    }
+
+    private void DisableWarningText()
+    {
+        warningText.enabled = false;
+    }
+
+    public void SetDroneBattery(float value)
+    {
+        batterySlider.maxValue = 100;
+        batterySlider.value = value;
+    }
+
+    public void TakeRocks()
+    {
+        if (GameService.Instance.droneService.GetDroneControllerByType(DroneType.CarrierDrone).nearDroneControlRoom)
         {
-            batterySlider.value = currentDroneScriptable.droneBattery;
+            List<RockData> rockDatas = currentDroneScriptable.rockDatas;
+            GameService.Instance.playerController.TakeRocks(rockDatas);
+            UpdateRockCount();
+        }
+        else
+        {
+            EnableWarningText(takeRockWarning);
         }
     }
+
+    public void SetAltitude(int val)
+    {
+        altitude = val;
+        altitudeText.text = val.ToString();
+    }
+
 }

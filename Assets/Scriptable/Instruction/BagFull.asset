@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BagFull
   m_EditorClassIdentifier: 
   InstructionType: 3
-  Instruction: Your bag is full, and there's no room for a stone
+  Instruction: Your storage is full, and there's no room for a rock
   DisplayDuration: 3
   WaitToTriggerDuration: 0

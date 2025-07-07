@@ -27,6 +27,13 @@ public class MissileView : MonoBehaviour
             enemySpaceCraftView.TakeDamage(missileController.missileScriptable.damage);
         }
 
+        SpacecraftView spacecraftView;
+
+        if (other.gameObject.TryGetComponent(out spacecraftView))
+        {
+            UIManager.Instance.ShowMissionFailedPanel();
+        }
+
         Building building;
 
         if (other.gameObject.TryGetComponent(out building))

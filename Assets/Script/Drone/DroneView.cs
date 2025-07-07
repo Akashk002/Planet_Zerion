@@ -13,6 +13,11 @@ public class DroneView : MonoBehaviour, ITriggerObject
         {
             UIManager.Instance.GetInfoHandler().ShowInstruction(InstructionType.RockCollect);
         }
+
+        if (gameObject.GetComponent<Entrance>() && gameObject.GetComponent<Entrance>().GetEntranceBuildingType() == BuildingType.DroneControlRoom)
+        {
+            controller.nearDroneControlRoom = true;
+        }
     }
 
     public void TriggerStay(GameObject gameObject)
@@ -38,6 +43,11 @@ public class DroneView : MonoBehaviour, ITriggerObject
             {
                 UIManager.Instance.GetInfoHandler().HideTextPopup();
             }
+        }
+
+        if (gameObject.GetComponent<Entrance>() && gameObject.GetComponent<Entrance>().GetEntranceBuildingType() == BuildingType.DroneControlRoom)
+        {
+            controller.nearDroneControlRoom = false;
         }
     }
 

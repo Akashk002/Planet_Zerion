@@ -22,7 +22,7 @@ public class PlayerRunState : IStatePlayer
             else
                 Owner.runAudioSource.transform.position = Owner.GetPos();
 
-            if (Owner.GetMoveSpeed() <= Owner.GetPlayerScriptable().walkSpeed)
+            if (Owner.GetMoveSpeed() <= Owner.GetPlayerWalkSpeed())
             {
                 Owner.runAudioSource.Stop();
                 stateMachine.ChangeState(PlayerStates.Walk);

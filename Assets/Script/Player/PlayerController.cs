@@ -1,29 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController
 {
-    protected float moveSpeed;
+    private float moveSpeed;
     private float tiredness;
     private PlayerScriptable playerScriptable;
     private float turnSmoothVelocity;
     private Vector3 gravityVelocity;
-    public PlayerView playerView;
+    private PlayerView playerView;
     private PlayerStateMachine stateMachine;
     private State state;
     private int rockCount;
-    public bool IsInteracted;
     private LTDescr tireNessleenTween;
-    public AudioSource walkAudioSource, runAudioSource;
+    public bool IsInteracted;
+    public AudioSource walkAudioSource;
+    public AudioSource runAudioSource;
 
     public PlayerController(PlayerView playerPrefab, PlayerScriptable playerScriptable)
     {
         this.playerView = Object.Instantiate(playerPrefab);
         playerView.SetController(this);
         this.playerScriptable = playerScriptable;
-        playerView.controller = new CharacterController(); // Assuming you have a way to initialize this
+        playerView.characterController = new CharacterController(); // Assuming you have a way to initialize this
         CreateStateMachine();
         stateMachine.ChangeState(PlayerStates.Idle);
         playerScriptable.tiredness = 0f;
@@ -70,24 +69,19 @@ public class PlayerController
             // Calculate movement direction based on camera rotation
             float moveAngle = Mathf.Atan2(inputDir.x, inputDir.z) * Mathf.Rad2Deg + cameraXAxisValue;
             Vector3 moveDir = Quaternion.Euler(0f, moveAngle, 0f) * Vector3.forward;
-            playerView.controller.Move(moveDir.normalized * moveSpeed * Time.deltaTime * ((100 - playerScriptable.tiredness) / 100));
+            playerView.characterController.Move(moveDir.normalized * moveSpeed * Time.deltaTime * ((100 - playerScriptable.tiredness) / 100));
 
             SetTiredness(moveSpeed);
         }
 
         // Apply gravity
-        if (playerView.controller.isGrounded && gravityVelocity.y < 0)
+        if (playerView.characterController.isGrounded && gravityVelocity.y < 0)
         {
             gravityVelocity.y = -2f;
         }
 
         gravityVelocity.y += playerScriptable.gravity * Time.deltaTime;
-        playerView.controller.Move(gravityVelocity * Time.deltaTime);
-    }
-
-    public Animator GetPlayerAnimator()
-    {
-        return playerView.animator;
+        playerView.characterController.Move(gravityVelocity * Time.deltaTime);
     }
 
     public void Activate()
@@ -114,6 +108,11 @@ public class PlayerController
         runAudioSource.Stop();
     }
 
+    public void CarryBagPack()
+    {
+        playerView.CarryBagPack();
+    }
+
     public void AddRock(RockType rockType)
     {
         if (GetTotalRock() < playerScriptable.RockStorageCapacity)
@@ -121,29 +120,15 @@ public class PlayerController
             GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.CollectRock, playerView.transform.position);
             RockData rockData = playerScriptable.rockDatas.Find(r => r.RockType == rockType);
             rockData.AddRock();
-            UIManager.Instance.playerPanel.SetRockCount(rockType, rockData.rockCount);
+            UIManager.Instance.playerPanel.UpdateRockCount();
         }
         else
         {
-            UIManager.Instance.GetInfoHandler().ShowInstruction(InstructionType.BagFull);
+            UIManager.Instance.GetInfoHandler().ShowInstruction(InstructionType.StorageFull);
         }
     }
 
-    public void CarryBagPack()
-    {
-        playerView.CarryBagPack();
-    }
-
-    public float GetMoveSpeed()
-    {
-        return moveSpeed;
-    }
-    public PlayerScriptable GetPlayerScriptable()
-    {
-        return playerScriptable;
-    }
-
-    public void SetTiredness(float val)
+    private void SetTiredness(float val)
     {
         int extraWeitht = playerView.IsCarryBagPack() ? 2 : 1;
         playerScriptable.tiredness += val * playerScriptable.tirednessIncRate * extraWeitht;
@@ -161,11 +146,6 @@ public class PlayerController
         }).setOnComplete(() => tireNessleenTween = null);
     }
 
-    public Vector3 GetPos()
-    {
-        return playerView.transform.position;
-    }
-
     public void SpendRock(int rockRequire)
     {
         int remaining = rockRequire;
@@ -178,7 +158,7 @@ public class PlayerController
             rockData.SpendRock(spendAmount);
             remaining -= spendAmount;
 
-            UIManager.Instance.playerPanel.SetRockCount(rockData.RockType, rockData.rockCount);
+            UIManager.Instance.playerPanel.UpdateRockCount();
         }
 
         if (remaining > 0)
@@ -186,6 +166,30 @@ public class PlayerController
             Debug.LogWarning("Not enough total rocks to spend the required amount!");
             // Optionally: rollback if partial spending is not allowed
         }
+    }
+
+    public Animator GetPlayerAnimator()
+    {
+        return playerView.animator;
+    }
+
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
+    public float GetPlayerWalkSpeed()
+    {
+        return playerScriptable.walkSpeed;
+    }
+
+    public Vector3 GetPos()
+    {
+        return playerView.transform.position;
+    }
+
+    public List<RockData> GetRockDatas()
+    {
+        return playerScriptable.rockDatas;
     }
 
     public int GetTotalRock()
@@ -196,6 +200,28 @@ public class PlayerController
             totalCount += rockData.rockCount;
         }
         return totalCount;
+    }
+
+    public void TakeRocks(List<RockData> droneRocks)
+    {
+        int currentTotal = GetTotalRock();
+
+        foreach (var droneRock in droneRocks)
+        {
+            var playerRock = playerScriptable.rockDatas.Find(r => r.RockType == droneRock.RockType);
+            if (playerRock == null) continue;
+
+            int spaceLeft = playerScriptable.RockStorageCapacity - currentTotal;
+            if (spaceLeft <= 0) return; // Player inventory full
+
+            int transferableAmount = Mathf.Min(droneRock.rockCount, spaceLeft);
+
+            playerRock.AddRock(transferableAmount);
+            droneRock.SpendRock(transferableAmount);
+            currentTotal += transferableAmount;
+        }
+
+        UIManager.Instance.playerPanel.UpdateRockCount();
     }
 
 }

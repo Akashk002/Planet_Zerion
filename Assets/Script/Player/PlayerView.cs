@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour, ITriggerObject
 {
     public CinemachineFreeLook cam;
-    public CharacterController controller;
+    public CharacterController characterController;
     public Animator animator;
     public GameObject bagPack;
     public AudioSource audioSource;
@@ -20,7 +20,7 @@ public class PlayerView : MonoBehaviour, ITriggerObject
 
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -82,7 +82,6 @@ public class PlayerView : MonoBehaviour, ITriggerObject
 
     public void CarryBagPack()
     {
-        Debug.Log("Carrying bag pack: " + !IsCarryBagPack());
         bagPack.SetActive(!IsCarryBagPack());
     }
 }

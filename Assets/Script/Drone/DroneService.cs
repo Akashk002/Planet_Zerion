@@ -50,6 +50,9 @@ public class DroneService
     {
         currentDroneController = droneControllers[droneType];
         currentDroneController.Activate();
+        UIManager.Instance.droneUIManager.SetDroneScriptable(currentDroneController.GetDroneScriptable());
+        UIManager.Instance.droneUIManager.SetAltitude((int)currentDroneController.GetAltitude());
+        UIManager.Instance.droneUIManager.SetDroneBattery(currentDroneController.GetBattery());
     }
 
     public DroneController GetDroneControllerByType(DroneType droneType)

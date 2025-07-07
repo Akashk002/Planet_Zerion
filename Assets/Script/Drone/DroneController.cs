@@ -15,6 +15,8 @@ public class DroneController
     private LTDescr batteryLeenTween;
     public bool IsInteracted;
     private AudioSource audioSource;
+    public bool nearDroneControlRoom;
+
     public DroneController(DroneScriptable droneScriptable)
     {
         this.droneScriptable = droneScriptable;
@@ -45,6 +47,11 @@ public class DroneController
             PerformSurveillance();
 
         Interact(); // for non-surveillance drones
+    }
+
+    public bool ChecknearDroneControlRoom()
+    {
+        return nearDroneControlRoom;
     }
 
     private void HandleMovement()
@@ -85,6 +92,7 @@ public class DroneController
             }
             else
                 audioSource.transform.position = droneView.transform.position;
+            UIManager.Instance.droneUIManager.SetAltitude((int)droneView.transform.position.y);
         }
         else
         {
@@ -122,7 +130,6 @@ public class DroneController
         {
             droneView.cam.fieldOfView -= scroll * 10f;
             droneView.cam.fieldOfView = Mathf.Clamp(droneView.cam.fieldOfView, 0f, 75f);
-            Debug.Log($"Camera Zoom Scroll: {scroll}, FOV: {droneView.cam.fieldOfView}");
         }
     }
 
@@ -141,7 +148,7 @@ public class DroneController
 
         droneState = DroneState.Activate;
         droneView.cam.gameObject.SetActive(true);
-        UIManager.Instance.droneUIManager.currentDroneScriptable = droneScriptable;
+        UIManager.Instance.droneUIManager.SetDroneScriptable(droneScriptable);
     }
 
     public void Deactivate()
@@ -157,6 +164,7 @@ public class DroneController
     {
         if (droneState == DroneState.Surveillance)
         {
+            droneState = DroneState.Activate;
             Activate();
         }
         else
@@ -191,13 +199,15 @@ public class DroneController
             GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.CollectRock, droneView.transform.position);
             RockData rockData = droneScriptable.rockDatas.Find(r => r.RockType == rockType);
             rockData?.AddRock();
-            UIManager.Instance.droneUIManager.SetRockCount(rockType, rockData.rockCount);
+            UIManager.Instance.droneUIManager.UpdateRockCount();
         }
         else
         {
-            UIManager.Instance.GetInfoHandler().ShowInstruction(InstructionType.BagFull);
+            UIManager.Instance.GetInfoHandler().ShowInstruction(InstructionType.StorageFull);
         }
     }
+
+
 
     private int GetTotalRock()
     {
@@ -209,8 +219,9 @@ public class DroneController
 
     public void SetBattery(float usage)
     {
-        droneScriptable.droneBattery -= usage * droneScriptable.droneBatteryDecRate;
+        droneScriptable.droneBattery -= usage * droneScriptable.droneBatteryDecRate * .001f;
         droneScriptable.droneBattery = Mathf.Clamp(droneScriptable.droneBattery, 0f, 100f);
+        UIManager.Instance.droneUIManager.SetDroneBattery(droneScriptable.droneBattery);
     }
 
     public void ChargeBattery()
@@ -224,6 +235,9 @@ public class DroneController
     public DroneType GetDronetype() => droneScriptable.droneType;
     public DroneScriptable GetDroneScriptable() => droneScriptable;
     public DroneState GetDroneState() => droneState;
+
+    public float GetAltitude() => droneView.transform.position.y;
+    public float GetBattery() => droneScriptable.droneBattery;
 }
 
 

@@ -12,6 +12,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
     public DroneUIManager droneUIManager;
     public InfoHandler infoHandler;
     public MinimapIconFollow minimapIconPanel;
+    public TextMeshProUGUI warningText;
 
     [Header("Room Panels")]
     public GameObject HomePanel;
@@ -23,7 +24,8 @@ public class UIManager : GenericMonoSingleton<UIManager>
     [SerializeField] private GameObject missionCompletePanel;
     [SerializeField] private GameObject missionFailedPanel;
     [SerializeField] private GameObject gamePausePanel;
-    [SerializeField] private GameObject GameCompletePanel;
+    [SerializeField] private GameObject gameCompletePanel;
+    [SerializeField] private GameObject controlInfoPanel;
     [SerializeField] private TextMeshProUGUI missionName;
     [SerializeField] private TextMeshProUGUI missionDescription;
 
@@ -42,6 +44,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
                 spacecraftPanel.gameObject.SetActive(true);
                 break;
             case PanelType.Drone:
+                playerPanel.gameObject.SetActive(true);
                 droneUIManager.gameObject.SetActive(true);
                 break;
             default:
@@ -52,6 +55,17 @@ public class UIManager : GenericMonoSingleton<UIManager>
     public InfoHandler GetInfoHandler()
     {
         return infoHandler;
+    }
+
+    public void ShowWarning(int value)
+    {
+        warningText.enabled = true;
+        warningText.SetText($"Base damage level: {value}%");
+        Invoke(nameof(HideWarning), 3f);
+    }
+    public void HideWarning()
+    {
+        warningText.enabled = false;
     }
 
     public void ShowMissionStartPanel(string missionName, string missionDesc)
@@ -76,7 +90,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
     public void ShowGameCompletePanel()
     {
         PlayPauseGame();
-        GameCompletePanel.SetActive(true);
+        gameCompletePanel.SetActive(true);
     }
 
     public void ShowMissionCompletePanelWithDelay(int value)
@@ -125,10 +139,23 @@ public class UIManager : GenericMonoSingleton<UIManager>
         SceneManager.LoadScene("Menu");
     }
 
+    public void showControlInfopanel()
+    {
+        gamePausePanel.SetActive(false);
+        controlInfoPanel.SetActive(true);
+    }
+
+    public void HideControlInfoPanel()
+    {
+        controlInfoPanel.SetActive(false);
+        gamePausePanel.SetActive(true);
+    }
+
     private void PlayPauseGame()
     {
         Time.timeScale = Time.timeScale == 1 ? 0 : 1;
     }
+
 }
 
 public enum PanelType

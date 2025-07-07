@@ -17,7 +17,7 @@ public class PlayerWalkState : IStatePlayer
     {
         if (Owner.GetMoveSpeed() > 0)
         {
-            if (Owner.GetMoveSpeed() > Owner.GetPlayerScriptable().walkSpeed)
+            if (Owner.GetMoveSpeed() > Owner.GetPlayerWalkSpeed())
             {
                 Owner.walkAudioSource.Stop();
                 stateMachine.ChangeState(PlayerStates.Run);
