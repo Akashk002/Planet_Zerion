@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71beffca571d9db489d7c06426c5640e, type: 3}
   m_Name: Light cruiser_5
   m_EditorClassIdentifier: 
+  enemySpaceCraftType: 9
   enemySpaceCraftView: {fileID: 3500809671774984904, guid: 2186cd3f199ea5f45a34fce71d399ec8, type: 3}
   missileType: 13
   health: 100

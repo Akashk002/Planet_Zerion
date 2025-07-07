@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a36014722870014e9575b9a3cf273ea, type: 3}
+  m_Name: Mission3
+  m_EditorClassIdentifier: 
+  missionType: 2
+  missionName: 'Mission 3: Defend the Skies'
+  missionDescription: "Enemy scouts have been spotted near orbit. Defense systems
+    must be activated immediately.\\n\\nYour objective is to:\\n- Strengthen aerial
+    detection by upgrading the Security Drone system\\n- Unlock and power up Automated
+    Defense Modules to intercept enemies\\n - Manually take flight using your spacecraft
+    to intercept alien scouts before they reach the colony\\n\\nBe prepared for increasing
+    enemy activity. This is the first wave\u2014stay sharp.\\n\\nNew Spacecraft Unlocked:\\n-
+    Corvette_5\\n- Frigate_1"
+  waveStartDelay: 180
+  spawnRate: 30
+  enemySpaceCraftSpawnList: 010000000000000005000000020000000300000004000000
+  spacecraftUnlockList: 0400000005000000
+  buildingUnlockList: 

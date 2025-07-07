@@ -4,26 +4,20 @@ using UnityEngine;
 
 public class EnemySpaceCraftService
 {
-    private List<EnemySpaceCraftScriptable> EnemySpaceCraftScriptables;
+    private List<EnemySpaceCraftData> enemySpaceCraftDatas;
     private EnemySpaceCraftPool enemySpaceCraftPool;
 
-    public EnemySpaceCraftService(List<EnemySpaceCraftScriptable> enemySpaceCraftScriptables)
+    public EnemySpaceCraftService(List<EnemySpaceCraftData> enemySpaceCraftDatas)
     {
-        this.EnemySpaceCraftScriptables = enemySpaceCraftScriptables;
+        this.enemySpaceCraftDatas = enemySpaceCraftDatas;
         enemySpaceCraftPool = new EnemySpaceCraftPool();
-
-        foreach (EnemySpaceCraftScriptable enemySpaceCraftScriptable in enemySpaceCraftScriptables)
-        {
-            enemySpaceCraftPool.Initialize(enemySpaceCraftScriptable); // Initialize with the first data and a pool size of 10
-        }
     }
 
-    public void CreateEnemySpaceCraft(Vector3 initialPos, Vector3 targetPos)
+    public EnemySpaceCraftController CreateEnemySpaceCraft(EnemySpaceCraftType enemySpaceCraftType, Vector3 initialPos, Vector3 targetPos)
     {
-        EnemySpaceCraftScriptable enemySpaceCraftScriptable = EnemySpaceCraftScriptables[Random.Range(0, EnemySpaceCraftScriptables.Count)];
-        EnemySpaceCraftController enemySpaceCraftController = enemySpaceCraftPool.GetEnemySpaceCraft<EnemySpaceCraftController>(enemySpaceCraftScriptable);
-
+        EnemySpaceCraftController enemySpaceCraftController = enemySpaceCraftPool.GetEnemySpaceCraft<EnemySpaceCraftController>(enemySpaceCraftDatas, enemySpaceCraftType);
         enemySpaceCraftController.Configure(initialPos, targetPos);
+        return enemySpaceCraftController;
     }
 
     public void ReturnEnemySpaceCraftPool(EnemySpaceCraftController enemySpaceCraftController) => enemySpaceCraftPool.ReturnItem(enemySpaceCraftController);

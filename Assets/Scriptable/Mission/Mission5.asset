@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a36014722870014e9575b9a3cf273ea, type: 3}
+  m_Name: Mission5
+  m_EditorClassIdentifier: 
+  missionType: 0
+  missionName: 'Mission 5: The Final Stand'
+  missionDescription: "- Defend Colony 7 from multiple waves of attackers\\n- Protect
+    key infrastructure: My Home, Warehouse Room, and Spacecraft Terminal\\n- Take
+    to the skies and eliminate 100 enemy ships in a final showdown to secure humanity\u2019s
+    future\\n\\nAll systems are online. All ships are ready.\\n\\nThis is the last
+    stand. Hold the line.\\n\\nNew Spacecraft Unlocked:\\n- Frigate_4\\n- Frigate_5"
+  waveStartDelay: 180
+  spawnRate: 30
+  enemySpaceCraftSpawnList: 08000000010000000300000009000000060000000000000005000000070000000200000004000000
+  spacecraftUnlockList: 0800000009000000
+  buildingUnlockList: 

@@ -62,15 +62,4 @@ public class GenericObjectPool<T> where T : class
         public T Item;
         public bool isUsed;
     }
-
-    public T PreloadItems<U>() where U : T
-    {
-        PooledItem<T> newItem = new PooledItem<T>();
-        newItem.Item = CreateItem<U>();
-        newItem.isUsed = false;
-        pooledItems.Add(newItem);
-
-        return newItem.Item;
-        //Debug.Log($"[ObjectPool] Preloaded {count} items of type {typeof(U).Name}. Total: {pooledItems.Count}");
-    }
 }

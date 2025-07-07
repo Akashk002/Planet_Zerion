@@ -13,17 +13,19 @@ public class EnemySpaceCraftController
     private bool isMoving = false;
     private AudioSource audioSource;
     private int currentHealth;
+    public EnemySpaceCraftType enemySpaceCraftType;
 
     public EnemySpaceCraftController(EnemySpaceCraftScriptable enemySpaceCraftScriptable)
     {
         enemySpaceCraftView = Object.Instantiate(enemySpaceCraftScriptable.enemySpaceCraftView);
         enemySpaceCraftView.SetController(this);
         this.enemySpaceCraftScriptable = enemySpaceCraftScriptable;
+        this.enemySpaceCraftType = enemySpaceCraftScriptable.enemySpaceCraftType;
     }
 
     public void Configure(Vector3 initialPos, Vector3 tragetPos)
     {
-        Activate();
+        enemySpaceCraftView.gameObject.SetActive(true);
         enemySpaceCraftView.transform.position = initialPos;
         targetPosition = tragetPos;
 
@@ -103,16 +105,11 @@ public class EnemySpaceCraftController
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.MissileBlastBig, enemySpaceCraftView.transform.position);
         GameService.Instance.VFXService.PlayVFXAtPosition(VFXType.MissileExplosionGround, enemySpaceCraftView.transform.position);
         GameService.Instance.enemySpaceCraftService.ReturnEnemySpaceCraftPool(this);
-        Deactivate();
-    }
-
-    public void Activate()
-    {
-        enemySpaceCraftView.gameObject.SetActive(true);
-    }
-
-    public void Deactivate()
-    {
         enemySpaceCraftView.gameObject.SetActive(false);
+    }
+
+    public bool IsDead()
+    {
+        return !enemySpaceCraftView.gameObject.activeSelf;
     }
 }

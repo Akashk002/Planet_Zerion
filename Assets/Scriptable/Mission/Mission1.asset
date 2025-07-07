@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a36014722870014e9575b9a3cf273ea, type: 3}
+  m_Name: Mission1
+  m_EditorClassIdentifier: 
+  missionType: 0
+  missionName: 'Mission 1: First Steps'
+  missionDescription: "Your journey begins at your home base My Home, Your personal
+    command base.\\n\\nYour first task is to collect resources in the form of rocks,
+    scattered across the terrain. These rare-earth materials are essential for unlocking
+    advanced buildings and spacecraft systems.\\n\\nYou\u2019ve already unlocked
+    the Resource Warehouse Room, where you can access and activate key facilities
+    such as the Spacecraft Terminal.\\n\\nAt the Spacecraft Terminal, you can:\\n-
+    Unlock available spacecraft\\n- Select and enter your chosen ship\\n\\nStart
+    gathering resources and prepare to expand your operations\u2014the defense of
+    the colony begins now.\\n\\nSpacecraft Unlocked:\\n- Corvette_1\\n- Corvette_2 "
+  waveStartDelay: 10
+  spawnRate: 10
+  enemySpaceCraftSpawnList: 0000000001000000
+  spacecraftUnlockList: 0000000001000000
+  buildingUnlockList: 03000000

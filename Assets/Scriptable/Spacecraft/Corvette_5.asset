@@ -26,6 +26,5 @@ MonoBehaviour:
   mouseSensitivity: 0.75
   maxPitch: 80
   spacecraftSprite: {fileID: -121722642, guid: 220dea9f94a37704abd400ef5b56bafe, type: 3}
-  spacecraftStatus: 1
-  Xylora_Rocks: 2
-  Prime_Rocks: 2
+  spacecraftStatus: 3
+  rocksRequire: 2

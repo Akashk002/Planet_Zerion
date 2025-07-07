@@ -165,6 +165,11 @@ public class DroneController
         }
     }
 
+    public bool CheckSurveillanceState()
+    {
+        return droneState == DroneState.Surveillance;
+    }
+
     public void Reset()
     {
         droneView.rb.velocity = Vector3.zero;

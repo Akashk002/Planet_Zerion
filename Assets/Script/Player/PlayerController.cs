@@ -43,7 +43,7 @@ public class PlayerController
         }
     }
 
-    public void GetInput()
+    private void GetInput()
     {
         float v = Input.GetAxis("Vertical");
         bool isRunning = Input.GetKey(KeyCode.Space);
@@ -198,4 +198,10 @@ public class PlayerController
         return totalCount;
     }
 
+}
+
+public enum State
+{
+    Activate,
+    deactivate
 }

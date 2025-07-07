@@ -5,25 +5,29 @@ using UnityEngine;
 
 public class EnemySpaceCraftPool : GenericObjectPool<EnemySpaceCraftController>
 {
-    private EnemySpaceCraftScriptable enemySpaceCraftScriptable;
+    private List<EnemySpaceCraftData> enemySpaceCraftDatas;
+    private EnemySpaceCraftType enemySpaceCraftType;
 
-    public void Initialize(EnemySpaceCraftScriptable enemySpaceCraftScriptable)
+    public EnemySpaceCraftController GetEnemySpaceCraft<T>(List<EnemySpaceCraftData> enemySpaceCraftDatas, EnemySpaceCraftType enemySpaceCraftType) where T : EnemySpaceCraftController
     {
-        this.enemySpaceCraftScriptable = enemySpaceCraftScriptable;
-        EnemySpaceCraftController enemySpaceCraftController = PreloadItems<EnemySpaceCraftController>();
+        this.enemySpaceCraftDatas = enemySpaceCraftDatas;
+        this.enemySpaceCraftType = enemySpaceCraftType;
 
-        enemySpaceCraftController.Deactivate();
-    }
+        var item = pooledItems.Find(p => !p.isUsed && p.Item.enemySpaceCraftType == enemySpaceCraftType);
 
-    public EnemySpaceCraftController GetEnemySpaceCraft<T>(EnemySpaceCraftScriptable enemySpaceCraftScriptable) where T : EnemySpaceCraftController
-    {
-        this.enemySpaceCraftScriptable = enemySpaceCraftScriptable;
+        if (item != null)
+        {
+            item.isUsed = true;
+            return item.Item;
+        }
 
         return GetItem<T>();
     }
 
     protected override EnemySpaceCraftController CreateItem<T>()
     {
+        EnemySpaceCraftScriptable enemySpaceCraftScriptable = enemySpaceCraftDatas.Find(m => m.enemySpaceCraftType == enemySpaceCraftType).enemySpaceCraftScriptable;
+
         if (typeof(T) == typeof(EnemySpaceCraftController))
             return new EnemySpaceCraftController(enemySpaceCraftScriptable);
         else

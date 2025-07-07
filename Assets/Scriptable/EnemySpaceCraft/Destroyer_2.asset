@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71beffca571d9db489d7c06426c5640e, type: 3}
   m_Name: Destroyer_2
   m_EditorClassIdentifier: 
+  enemySpaceCraftType: 1
   enemySpaceCraftView: {fileID: 3500809671774984904, guid: 3b91e23ce38d78143bd6722da239c5e9, type: 3}
   missileType: 4
   health: 100

@@ -48,4 +48,14 @@ public class BuildingManager : MonoBehaviour
     {
         return BuildingDatas.Exists(data => data.buildingType == entranceBuildingType && data.buildingScriptable.buildingState == BuildingState.Unlocked);
     }
+
+    public void SetBuildingAvilable(BuildingType buildingType)
+    {
+        BuildingData data = BuildingDatas.Find(d => d.buildingType == buildingType);
+        if (data != null)
+        {
+            data.buildingScriptable.buildingState = BuildingState.Locked;
+            Debug.Log($"Building {buildingType} unlocked.");
+        }
+    }
 }

@@ -57,5 +57,7 @@ public enum SpacecraftStatus
 {
     Locked,
     Selected,
-    Unlocked
+    Unlocked,
+    Unavailable
+
 }

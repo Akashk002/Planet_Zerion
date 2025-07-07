@@ -52,6 +52,15 @@ public class DroneService
         currentDroneController.Activate();
     }
 
+    public DroneController GetDroneControllerByType(DroneType droneType)
+    {
+        if (droneControllers.ContainsKey(droneType))
+        {
+            return droneControllers[droneType];
+        }
+        return null;
+    }
+
     public void SwitchDrone()
     {
         currentDroneController.Deactivate();

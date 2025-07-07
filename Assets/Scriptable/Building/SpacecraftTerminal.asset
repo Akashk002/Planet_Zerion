@@ -16,5 +16,5 @@ MonoBehaviour:
   description: A docking and maintenance hub where you select, refuel, and reload
     spacecraft. It provides essential data and preparation before space missions.
   buildingIcon: {fileID: 1456724743, guid: 855182fe44e89954b9391cf362ea66a1, type: 3}
-  buildingState: 0
+  buildingState: 2
   rockRequire: 10

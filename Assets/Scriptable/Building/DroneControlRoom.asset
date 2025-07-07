@@ -17,5 +17,5 @@ MonoBehaviour:
     rocks from the field, while Security Drones patrol for threats and ensure colony
     safety.'
   buildingIcon: {fileID: 2118493960, guid: 352696391daa3a94cb65049a4314bad2, type: 3}
-  buildingState: 0
+  buildingState: 2
   rockRequire: 5

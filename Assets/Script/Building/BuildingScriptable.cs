@@ -16,7 +16,7 @@ public enum BuildingState
 {
     Locked,
     Unlocked,
-    ComingSoon,
+    unavailable,
 }
 
 [System.Serializable]
