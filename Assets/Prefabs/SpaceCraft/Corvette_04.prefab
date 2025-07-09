@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1244243874568826143}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BoosterVfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,6 +545,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 067369b28ae6a2441bf8fd2f0c565d64, type: 3}
       propertyPath: m_Name
       value: FlameThrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 067369b28ae6a2441bf8fd2f0c565d64, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 067369b28ae6a2441bf8fd2f0c565d64, type: 3}
       propertyPath: m_IsActive

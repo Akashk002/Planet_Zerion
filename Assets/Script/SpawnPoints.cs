@@ -44,8 +44,8 @@ public class SpawnPoints : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            //SpawnPointData spawnPoint = GetspawnPoint();
-            //GameService.Instance.enemySpaceCraftService.CreateEnemySpaceCraft(EnemySpaceCraftType.Destroyer_1, spawnPoint.initialTransform.position, spawnPoint.targetTransform.position);
+            SpawnPointData spawnPoint = GetspawnPoint();
+            GameService.Instance.enemySpaceCraftService.CreateEnemySpaceCraft(EnemySpaceCraftType.Destroyer_1, spawnPoint.initialTransform.position, spawnPoint.targetTransform.position);
         }
     }
 }

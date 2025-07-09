@@ -15,6 +15,8 @@ public class GameService : GenericMonoSingleton<GameService>
     public BuildingManager buildingManager;
     public AudioManager audioManager;
     public SpawnPoints spawnPoints;
+    public float EnemyHitPlayerDistance = 400;
+
     public PlayerController playerController { get; private set; }
     public DroneService droneService { get; private set; }
     public SpacecraftService spacecraftService { get; private set; }
@@ -26,7 +28,7 @@ public class GameService : GenericMonoSingleton<GameService>
     // Start is called before the first frame update
     void Start()
     {
-        missionService = new MissionService(missionDatas);
+        //missionService = new MissionService(missionDatas);
 
         PlayerModel playerModel = new PlayerModel(PlayerScriptable);
         playerController = new PlayerController(playerView, playerModel);

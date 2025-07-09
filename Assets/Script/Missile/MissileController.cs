@@ -115,4 +115,9 @@ public class MissileController : MonoBehaviour
     {
         missileView.Destroy();
     }
+
+    public float GetDamage()
+    {
+        return missileScriptable.damage;
+    }
 }

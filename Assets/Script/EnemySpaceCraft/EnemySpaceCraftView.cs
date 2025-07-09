@@ -39,7 +39,7 @@ public class EnemySpaceCraftView : MonoBehaviour
 
                 Debug.Log($"Distance to player: {distanceToPlayer}");
 
-                if (distanceToPlayer <= 500f)
+                if (distanceToPlayer <= GameService.Instance.EnemyHitPlayerDistance)
                 {
                     // Target the player
                     targetPos = spacecraftController.GetPos();

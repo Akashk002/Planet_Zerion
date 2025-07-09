@@ -7,6 +7,7 @@ public class MissileView : MonoBehaviour
 {
     private MissileController missileController;
     public VFXType ExplosionVFXType;
+    public bool playerMissile;
 
     // Update is called once per frame
     void Update()
@@ -22,27 +23,27 @@ public class MissileView : MonoBehaviour
     {
         EnemySpaceCraftView enemySpaceCraftView;
 
-        if (other.gameObject.TryGetComponent(out enemySpaceCraftView))
+        if (other.gameObject.TryGetComponent(out enemySpaceCraftView) && playerMissile)
         {
-            enemySpaceCraftView.TakeDamage(missileController.missileScriptable.damage);
+            enemySpaceCraftView.TakeDamage(missileController.GetDamage());
+            Debug.Log($"player Missile hit: {other.gameObject.name} , missile name {missileController.missileScriptable.name}");
         }
 
         SpacecraftView spacecraftView;
 
-        if (other.gameObject.TryGetComponent(out spacecraftView))
+        if (other.gameObject.TryGetComponent(out spacecraftView) && !playerMissile)
         {
             spacecraftView.Destroy();
             UIManager.Instance.ShowMissionFailedPanel();
+            Debug.Log($"enemy Missile hit: {other.gameObject.name} , missile name {missileController.missileScriptable.name}");
         }
 
         Building building;
 
         if (other.gameObject.TryGetComponent(out building))
         {
-            building.TakeDamage(missileController.missileScriptable.damage);
+            building.TakeDamage(missileController.GetDamage());
         }
-
-        Debug.Log($"Missile hit: {other.gameObject.name}");
 
         Destroy();
     }
