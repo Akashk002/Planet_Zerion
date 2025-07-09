@@ -9,7 +9,8 @@ public class SpacecraftService
     public void CreateSpacecraft(SpacecraftScriptable spacecraftScriptable)
     {
         RemovePreviousSpacecraft();
-        spacecraftController = new SpacecraftController(spacecraftScriptable);
+        SpacecraftModel spacecraftModel = new SpacecraftModel(spacecraftScriptable);
+        spacecraftController = new SpacecraftController(spacecraftModel);
         spacecraftController.Configure();
     }
 

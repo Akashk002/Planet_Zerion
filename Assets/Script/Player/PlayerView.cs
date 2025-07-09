@@ -1,7 +1,4 @@
 using Cinemachine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour, ITriggerObject
@@ -55,9 +52,9 @@ public class PlayerView : MonoBehaviour, ITriggerObject
             {
                 interactable.Interact();
 
-                if (gameObject.GetComponent<Rock>())
+                Rock rock;
+                if (gameObject.TryGetComponent(out rock))
                 {
-                    Rock rock = gameObject.GetComponent<Rock>();
                     playerController.AddRock(rock.GetRockType());
                 }
             }

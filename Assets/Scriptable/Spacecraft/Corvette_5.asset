@@ -15,10 +15,10 @@ MonoBehaviour:
   spacecraftType: 4
   spacecraftView: {fileID: -4406730676619056594, guid: 69ef0300129732b4488446dabc6b4883, type: 3}
   health: 100
-  missileType: 15
-  missileCapacity: 15
-  maxRange: 100
-  maxSpeed: 100
+  missileType: 5
+  missileCapacity: 25
+  maxRange: 95
+  maxSpeed: 150
   verticalSpeed: 5
   brakeSpeed: 1
   accelerationSpeed: 1

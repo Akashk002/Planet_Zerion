@@ -22,6 +22,19 @@ public class MissilePool : GenericObjectPool<MissileController>
         return GetItem<T>();
     }
 
+    public List<MissileController> GetAllMissiles()
+    {
+        List<MissileController> activeMissiles = new List<MissileController>();
+        foreach (var item in pooledItems)
+        {
+            if (item.isUsed)
+            {
+                activeMissiles.Add(item.Item);
+            }
+        }
+        return activeMissiles;
+    }
+
 
     protected override MissileController CreateItem<T>()
     {

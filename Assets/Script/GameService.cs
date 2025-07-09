@@ -27,7 +27,10 @@ public class GameService : GenericMonoSingleton<GameService>
     void Start()
     {
         missionService = new MissionService(missionDatas);
-        playerController = new PlayerController(playerView, PlayerScriptable);
+
+        PlayerModel playerModel = new PlayerModel(PlayerScriptable);
+        playerController = new PlayerController(playerView, playerModel);
+
         droneService = new DroneService(droneDatas);
         spacecraftService = new SpacecraftService();
         enemySpaceCraftService = new EnemySpaceCraftService(enemySpaceCraftDatas);

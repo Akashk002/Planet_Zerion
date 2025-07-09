@@ -19,21 +19,19 @@ public class SpaceCraftUIManager : MonoBehaviour
     private int maxRange;
 
     private SpacecraftController spacecraftController;
-    private SpacecraftScriptable spacecraftScriptable;
 
     private void Start()
     {
         backToRoomBtn.onClick.AddListener(BackToRoom);
         spacecraftController = GameService.Instance.spacecraftService.GetSpacecraftController();
-        spacecraftScriptable = spacecraftController.GetSpacecraftScriptable();
-        maxSpeedTxt.SetText(spacecraftScriptable.maxSpeed.ToString());
-        maxMissile = (spacecraftScriptable.missileCapacity);
-        maxRange = spacecraftScriptable.maxRange;
+        maxSpeedTxt.SetText(spacecraftController.GetMaxSpeed().ToString());
+        maxMissile = spacecraftController.GetMissileCapacity();
+        maxRange = spacecraftController.GetMaxRange();
     }
 
     private void OnEnable()
     {
-        ToggleBackToRoomBtn(true);
+        ShowAndHideBtn(true);
         SetMissileCount(maxMissile);
         SetRangeRemaining(maxRange);
         SetAltitude(0); // Assuming initial altitude is 0
@@ -81,7 +79,7 @@ public class SpaceCraftUIManager : MonoBehaviour
         reloadBtn.interactable = false;
     }
 
-    public void ToggleBackToRoomBtn(bool enable)
+    public void ShowAndHideBtn(bool enable)
     {
         reloadBtn.interactable = true;
         refuelBtn.interactable = true;

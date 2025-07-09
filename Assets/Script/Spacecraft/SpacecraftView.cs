@@ -18,11 +18,6 @@ public class SpacecraftView : MonoBehaviour
         Camera = Camera.main;
     }
 
-    internal void SetController(SpacecraftController spacecraftController)
-    {
-        this.controller = spacecraftController;
-    }
-
     private void Update()
     {
         if (controller != null)
@@ -31,11 +26,16 @@ public class SpacecraftView : MonoBehaviour
         }
     }
 
+    internal void SetController(SpacecraftController spacecraftController)
+    {
+        this.controller = spacecraftController;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<LandingZone>())
         {
-            UIManager.Instance.spacecraftPanel.ToggleBackToRoomBtn(true);
+            UIManager.Instance.spacecraftPanel.ShowAndHideBtn(true);
         }
     }
 
@@ -43,7 +43,7 @@ public class SpacecraftView : MonoBehaviour
     {
         if (other.GetComponent<LandingZone>())
         {
-            UIManager.Instance.spacecraftPanel.ToggleBackToRoomBtn(false);
+            UIManager.Instance.spacecraftPanel.ShowAndHideBtn(false);
         }
     }
 
@@ -66,5 +66,12 @@ public class SpacecraftView : MonoBehaviour
                 p.Stop();
             }
         });
+    }
+
+    public void Destroy()
+    {
+        GameService.Instance.VFXService.PlayVFXAtPosition(VFXType.MissileExplosion, transform.position);
+        GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.MissileBlastBig, transform.position);
+        gameObject.SetActive(false);
     }
 }

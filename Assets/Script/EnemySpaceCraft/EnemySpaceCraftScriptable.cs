@@ -10,7 +10,7 @@ public class EnemySpaceCraftScriptable : ScriptableObject
     public MissileType missileType; // Type of the missile used by the enemy spacecraft
     public float health = 100f; // Health of the enemy spacecraft
     public float moveSpeed = 10f;
-    public float fireRate = 1f;
+    public float fireInterval = 5f;
 }
 
 [System.Serializable]

@@ -23,8 +23,8 @@ MonoBehaviour:
     Unlock available spacecraft\\n- Select and enter your chosen ship\\n\\nStart
     gathering resources and prepare to expand your operations\u2014the defense of
     the colony begins now.\\n\\nSpacecraft Unlocked:\\n- Corvette_1\\n- Corvette_2 "
-  waveStartDelay: 10
-  spawnRate: 10
+  waveStartDelay: 60
+  spawnRate: 30
   enemySpaceCraftSpawnList: 0000000001000000
   spacecraftUnlockList: 0000000001000000
   buildingUnlockList: 03000000

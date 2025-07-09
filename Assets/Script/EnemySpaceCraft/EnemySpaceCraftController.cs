@@ -14,6 +14,7 @@ public class EnemySpaceCraftController
     private AudioSource audioSource;
     private int currentHealth;
     public EnemySpaceCraftType enemySpaceCraftType;
+    internal float GetFireInterval;
 
     public EnemySpaceCraftController(EnemySpaceCraftScriptable enemySpaceCraftScriptable)
     {
@@ -108,8 +109,6 @@ public class EnemySpaceCraftController
         enemySpaceCraftView.gameObject.SetActive(false);
     }
 
-    public bool IsDead()
-    {
-        return !enemySpaceCraftView.gameObject.activeSelf;
-    }
+    public bool IsDead() => !enemySpaceCraftView.gameObject.activeSelf;
+    internal float GetFireInteral() => enemySpaceCraftScriptable.fireInterval;
 }

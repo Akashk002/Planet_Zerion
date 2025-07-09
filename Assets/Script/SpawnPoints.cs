@@ -32,7 +32,7 @@ public class SpawnPoints : MonoBehaviour
         SpawnPointData spawnPointData = tempSpawnPoints[randomIndex];
         tempSpawnPoints.RemoveAt(randomIndex);
 
-        if (GameService.Instance.droneService.GetDroneControllerByType(DroneType.SecurityDrone).CheckSurveillanceState())
+        if (GameService.Instance.droneService.GetDroneControllerByType(DroneType.SecurityDrone).GetDroneState() == DroneState.Surveillance)
         {
             UIManager.Instance.minimapIconPanel.StartBlink(randomIndex);
         }
@@ -44,8 +44,8 @@ public class SpawnPoints : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SpawnPointData spawnPoint = GetspawnPoint();
-            GameService.Instance.enemySpaceCraftService.CreateEnemySpaceCraft(EnemySpaceCraftType.Destroyer_1, spawnPoint.initialTransform.position, spawnPoint.targetTransform.position);
+            //SpawnPointData spawnPoint = GetspawnPoint();
+            //GameService.Instance.enemySpaceCraftService.CreateEnemySpaceCraft(EnemySpaceCraftType.Destroyer_1, spawnPoint.initialTransform.position, spawnPoint.targetTransform.position);
         }
     }
 }

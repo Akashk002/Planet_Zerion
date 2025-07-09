@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DroneView : MonoBehaviour, ITriggerObject
@@ -7,6 +5,20 @@ public class DroneView : MonoBehaviour, ITriggerObject
     public Rigidbody rb;
     public Camera cam;
     private DroneController controller;
+
+    public void SetController(DroneController controller)
+    {
+        this.controller = controller;
+    }
+
+    private void Update()
+    {
+        if (controller != null)
+        {
+            controller.Update();
+        }
+    }
+
     public void TriggerEnter(GameObject gameObject)
     {
         if (gameObject.GetComponent<Rock>())
@@ -25,11 +37,11 @@ public class DroneView : MonoBehaviour, ITriggerObject
         IInteractable interactable;
         if (gameObject.TryGetComponent(out interactable))
         {
-            if ((gameObject.GetComponent<Rock>() && controller.IsInteracted))
+            Rock rock;
+            if ((gameObject.TryGetComponent(out rock) && controller.IsInteracted))
             {
                 controller.IsInteracted = false;
                 interactable.Interact();
-                Rock rock = gameObject.GetComponent<Rock>();
                 controller.AddRock(rock.GetRockType());
             }
         }
@@ -48,19 +60,6 @@ public class DroneView : MonoBehaviour, ITriggerObject
         if (gameObject.GetComponent<Entrance>() && gameObject.GetComponent<Entrance>().GetEntranceBuildingType() == BuildingType.DroneControlRoom)
         {
             controller.nearDroneControlRoom = false;
-        }
-    }
-
-    internal void SetController(DroneController controller)
-    {
-        this.controller = controller;
-    }
-
-    private void Update()
-    {
-        if (controller != null)
-        {
-            controller.Update();
         }
     }
 }

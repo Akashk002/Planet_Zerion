@@ -22,7 +22,7 @@ MonoBehaviour:
     is detected.\n\nThese systems will help you prepare for incoming alien activity
     and maintain a steady supply of resources for further upgrades.\n\nNew Spacecraft
     Unlocked:\n- Corvette_3\n- Corvette_4'
-  waveStartDelay: 180
+  waveStartDelay: 90
   spawnRate: 30
   enemySpaceCraftSpawnList: 03000000000000000200000001000000
   spacecraftUnlockList: 0200000003000000

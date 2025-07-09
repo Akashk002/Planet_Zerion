@@ -19,6 +19,14 @@ public class MissileService
         missileController.Configure(InitialTransform, targetPos, turningEnable);
     }
 
+    public void DeactivateAllMissile()
+    {
+        foreach (var missile in missilePool.GetAllMissiles())
+        {
+            missile.Destroy();
+        }
+    }
+
     public void ReturnDefenderPool(MissileController missileController) => missilePool.ReturnItem(missileController);
 }
 

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,40 +17,24 @@ public class DroneService
     {
         foreach (DroneData droneData in droneDatas)
         {
-            DroneController droneController = new DroneController(droneData.droneScriptable);
+            DroneModel droneModel = new DroneModel(droneData.droneScriptable);
+            DroneController droneController = new DroneController(droneModel);
             droneController.Configure();
             droneControllers.Add(droneData.droneType, droneController);
         }
-    }
-
-    public void CreateDrone(DroneType droneType)
-    {
-        if (droneControllers.ContainsKey(droneType))
-        {
-            Debug.LogWarning($"Drone of type {droneType} already exists.");
-            return;
-        }
-
-        DroneData droneData = droneDatas.Find(data => data.droneType == droneType);
-
-        DroneController droneController = new DroneController(droneData.droneScriptable);
-        droneController.Configure();
-        droneControllers.Add(droneType, droneController);
-    }
-
-
-    public DroneController GetDroneController()
-    {
-        return currentDroneController;
     }
 
     public void StartDrone(DroneType droneType)
     {
         currentDroneController = droneControllers[droneType];
         currentDroneController.Activate();
-        UIManager.Instance.droneUIManager.SetDroneScriptable(currentDroneController.GetDroneScriptable());
-        UIManager.Instance.droneUIManager.SetAltitude((int)currentDroneController.GetAltitude());
-        UIManager.Instance.droneUIManager.SetDroneBattery(currentDroneController.GetBattery());
+    }
+
+    public void SwitchDrone()
+    {
+        currentDroneController.Deactivate();
+        DroneType otherDroneType = (currentDroneController.GetDronetype() == DroneType.CarrierDrone) ? DroneType.SecurityDrone : DroneType.CarrierDrone;
+        StartDrone(otherDroneType);
     }
 
     public DroneController GetDroneControllerByType(DroneType droneType)
@@ -64,13 +46,6 @@ public class DroneService
         return null;
     }
 
-    public void SwitchDrone()
-    {
-        currentDroneController.Deactivate();
-        DroneType otherDroneType = (currentDroneController.GetDronetype() == DroneType.CarrierDrone) ? DroneType.SecurityDrone : DroneType.CarrierDrone;
-        StartDrone(otherDroneType);
-    }
-
     public void StopDrone()
     {
         if (currentDroneController != null)
@@ -78,5 +53,10 @@ public class DroneService
             currentDroneController.Deactivate();
             currentDroneController = null;
         }
+    }
+
+    public DroneController GetCurrentDroneController()
+    {
+        return currentDroneController;
     }
 }

@@ -31,6 +31,7 @@ public class MissileView : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out spacecraftView))
         {
+            spacecraftView.Destroy();
             UIManager.Instance.ShowMissionFailedPanel();
         }
 
@@ -41,6 +42,13 @@ public class MissileView : MonoBehaviour
             building.TakeDamage(missileController.missileScriptable.damage);
         }
 
+        Debug.Log($"Missile hit: {other.gameObject.name}");
+
+        Destroy();
+    }
+
+    public void Destroy()
+    {
         GameService.Instance.missileService.ReturnDefenderPool(missileController);
         GameService.Instance.VFXService.PlayVFXAtPosition(ExplosionVFXType, transform.position);
 

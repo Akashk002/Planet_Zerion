@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missileType: 7
   missileView: {fileID: 841435937050009337, guid: c2417fea9463fb942b4fe6df4b335b34, type: 3}
-  moveSpeed: 100
+  moveSpeed: 225
   damage: 50
   boostSpeed: 3
+  spacecraftSprite: {fileID: 0}

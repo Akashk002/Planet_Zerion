@@ -156,20 +156,12 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
 
     public void FlySpaceCraft()
     {
+        SpacecraftScriptable spacecraftScriptable = spacecraftData.Find(data => data.spacecraftScriptable.spacecraftStatus == SpacecraftStatus.Selected).spacecraftScriptable;
+
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
         GameService.Instance.spacecraftService.CreateSpacecraft(spacecraftScriptable);
         GameService.Instance.spacecraftService.GetSpacecraftController().Activate();
         gameObject.SetActive(false);
-    }
-
-    public void Refuel()
-    {
-
-    }
-
-    public void ReloadMissile()
-    {
-
     }
 }
 [System.Serializable]

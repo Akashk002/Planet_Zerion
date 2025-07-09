@@ -21,7 +21,7 @@ MonoBehaviour:
     to intercept alien scouts before they reach the colony\\n\\nBe prepared for increasing
     enemy activity. This is the first wave\u2014stay sharp.\\n\\nNew Spacecraft Unlocked:\\n-
     Corvette_5\\n- Frigate_1"
-  waveStartDelay: 180
+  waveStartDelay: 120
   spawnRate: 30
   enemySpaceCraftSpawnList: 010000000000000005000000020000000300000004000000
   spacecraftUnlockList: 0400000005000000

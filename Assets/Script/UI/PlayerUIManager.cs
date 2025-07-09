@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,22 +11,21 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private Button bagPackButton;
     [SerializeField] private Button takeRestButton;
     [SerializeField] private TextMeshProUGUI bagPackText;
+    [SerializeField] private PlayerController playerController;
 
     private void Start()
     {
         bagPackButton.onClick.AddListener(ToggleBagPack);
         takeRestButton.onClick.AddListener(TakeRest);
-    }
-
-    public void SetRockCount(RockType rockType, int Val)
-    {
-        RockUIData rockUIData = rockUIDatas.Find(data => data.rockType == rockType);
-        rockUIData.SetText(Val);
+        if (playerController == null)
+        {
+            playerController = GameService.Instance.playerController;
+        }
     }
 
     public void UpdateRockCount()
     {
-        List<RockData> rockDatas = GameService.Instance.playerController.GetRockDatas();
+        List<RockData> rockDatas = playerController.GetRockDatas();
         foreach (var rockData in rockDatas)
         {
             RockUIData rockUIData = rockUIDatas.Find(data => data.rockType == rockData.RockType);
@@ -44,7 +42,7 @@ public class PlayerUIManager : MonoBehaviour
     public void TakeRest()
     {
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
-        GameService.Instance.playerController.TakeRest();
+        playerController.TakeRest();
     }
 
     public void ToggleBagPack()
@@ -55,7 +53,7 @@ public class PlayerUIManager : MonoBehaviour
             stoneInfoPanel.gameObject.SetActive(!stoneInfoPanel.gameObject.activeSelf);
             bagPackButton.targetGraphic.color = stoneInfoPanel.gameObject.activeSelf ? new Color(1, 1, 1, 0.5f) : Color.white;
             bagPackText.text = stoneInfoPanel.gameObject.activeSelf ? "Click to drop the bag" : "Click to get the bag";
-            GameService.Instance.playerController.CarryBagPack();
+            playerController.CarryBagPack();
         }
     }
 }

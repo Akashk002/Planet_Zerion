@@ -4,34 +4,31 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class SpacecraftController
 {
-    private float moveSpeed = 0f;
-    private float range = 0f;
-    private float missileCount = 0f;
     private float yaw;
     private float pitch;
     private bool isRotating = false;
     private SpacecraftView spacecraftView;
-    private SpacecraftScriptable spacecraftSO;
+    private SpacecraftModel spacecraftModel;
     private Transform initialTransform;
     private State state;
     private Vector3 currentTargetPosition;
-    private SpaceCraftUIManager spaceCraftUIManager;
-    private AudioSource audioSource;
 
-    public SpacecraftController(SpacecraftScriptable spacecraftSO)
+    private AudioSource audioSource;
+    private float moveSpeed;
+
+    public SpacecraftController(SpacecraftModel spacecraftModel)
     {
-        this.spacecraftView = Object.Instantiate(spacecraftSO.spacecraftView);
-        this.spacecraftView.SetController(this);
-        this.spacecraftSO = spacecraftSO;
-        spaceCraftUIManager = UIManager.Instance.spacecraftPanel;
+        spacecraftView = Object.Instantiate(spacecraftModel.spacecraftPrefab);
+        spacecraftView.SetController(this);
+        this.spacecraftModel = spacecraftModel;
     }
 
     public void Configure()
     {
         initialTransform = spacecraftView.transform;
         spacecraftView.rb.freezeRotation = true;
-        missileCount = spacecraftSO.missileCapacity;
-        range = spacecraftSO.maxRange;
+        spacecraftModel.Refuel();
+        spacecraftModel.ReloadMissile();
         // Lock cursor for mouse look
         //Cursor.lockState = CursorLockMode.Locked;
 
@@ -56,54 +53,45 @@ public class SpacecraftController
         Move();
     }
 
-    public void SetRange(float value)
-    {
-        range -= Time.deltaTime * value * 0.001f;
-        Mathf.Clamp(range, 0f, spacecraftSO.maxRange);
-        spaceCraftUIManager.SetRangeRemaining((int)range);
-    }
-
     private void Move()
     {
         Vector3 moveDirection = Vector3.zero;
 
         // --- Throttle Forward/Backward ---
-        bool isAccelerating = Input.GetKey(KeyCode.W) && moveSpeed < spacecraftSO.maxSpeed;
+        bool isAccelerating = Input.GetKey(KeyCode.W) && moveSpeed < spacecraftModel.maxSpeed;
         bool isBraking = Input.GetKey(KeyCode.S) && moveSpeed > 0;
 
         if (isAccelerating)
         {
-            moveSpeed += spacecraftSO.accelerationSpeed;
+            moveSpeed += spacecraftModel.accelerationSpeed;
             isRotating = true;
 
-            spaceCraftUIManager.SetSpeed((int)moveSpeed);
+            spacecraftModel.SetSpeed((int)moveSpeed);
         }
         else if (isBraking)
         {
-            moveSpeed -= spacecraftSO.brakeSpeed;
-            spaceCraftUIManager.SetSpeed((int)moveSpeed);
+            moveSpeed -= spacecraftModel.brakeSpeed;
+            spacecraftModel.SetSpeed((int)moveSpeed);
         }
 
         // --- Forward Movement ---
         moveDirection += spacecraftView.transform.forward * moveSpeed;
-
-        SetRange(moveSpeed);
-
+        spacecraftModel.SetRange(moveSpeed);
 
         // --- Vertical Movement ---
         if (Input.GetKey(KeyCode.A))
         {
-            moveDirection += spacecraftView.transform.up * spacecraftSO.verticalSpeed;
+            moveDirection += spacecraftView.transform.up * spacecraftModel.verticalSpeed;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            moveDirection -= spacecraftView.transform.up * spacecraftSO.verticalSpeed;
+            moveDirection -= spacecraftView.transform.up * spacecraftModel.verticalSpeed;
         }
 
         // --- Apply Velocity ---
         spacecraftView.rb.velocity = moveDirection;
-        spaceCraftUIManager.SetAltitude((int)spacecraftView.transform.position.y);
+        spacecraftModel.SetAltitude((int)spacecraftView.transform.position.y);
 
         if (moveDirection != Vector3.zero)
         {
@@ -125,22 +113,20 @@ public class SpacecraftController
             }
         }
 
-
         // --- Rotation by Mouse ---
         if (isRotating || Input.GetMouseButton(1))
         {
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
 
-            yaw += mouseX * spacecraftSO.rotationSpeed * spacecraftSO.mouseSensitivity * Time.fixedDeltaTime;
-            pitch -= mouseY * spacecraftSO.rotationSpeed * spacecraftSO.mouseSensitivity * Time.fixedDeltaTime;
-            pitch = Mathf.Clamp(pitch, -spacecraftSO.maxPitch, spacecraftSO.maxPitch);
+            yaw += mouseX * spacecraftModel.rotationSpeed * spacecraftModel.mouseSensitivity * Time.fixedDeltaTime;
+            pitch -= mouseY * spacecraftModel.rotationSpeed * spacecraftModel.mouseSensitivity * Time.fixedDeltaTime;
+            pitch = Mathf.Clamp(pitch, -spacecraftModel.maxPitch, spacecraftModel.maxPitch);
 
             Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
             spacecraftView.rb.MoveRotation(targetRotation);
         }
     }
-
 
     public void Activate()
     {
@@ -156,11 +142,6 @@ public class SpacecraftController
         state = State.deactivate;
         spacecraftView.cam.Priority = 0;
         spacecraftView.EnableBoosterVFX(false);
-    }
-
-    internal void TakeDamage(float damage)
-    {
-        throw new System.NotImplementedException();
     }
 
     private void AimAtTarget()
@@ -180,40 +161,20 @@ public class SpacecraftController
 
     private void FireMissileAtTarget()
     {
-        if (missileCount > 0)
+        if (spacecraftModel.missileCount > 0)
         {
-            missileCount--;
+            spacecraftModel.missileCount--;
             Transform shootPoint = spacecraftView.GetShootTransform();
-            GameService.Instance.missileService.CreateMissile(spacecraftSO.missileType, shootPoint, currentTargetPosition, false);
-            spaceCraftUIManager.SetMissileCount((int)missileCount);
+            GameService.Instance.missileService.CreateMissile(spacecraftModel.missileType, shootPoint, currentTargetPosition, false);
+            spacecraftModel.SetMissileCount(spacecraftModel.missileCount);
         }
     }
 
-    internal SpacecraftScriptable GetSpacecraftScriptable()
-    {
-        return spacecraftSO;
-    }
-
-
-    internal void Destroy()
-    {
-        SpacecraftView.Destroy(spacecraftView.gameObject);
-    }
-
-    public void Refuel()
-    {
-        range = spacecraftSO.maxRange;
-        spaceCraftUIManager.SetRangeRemaining((int)range);
-    }
-
-    public void ReloadMissile()
-    {
-        missileCount = spacecraftSO.missileCapacity;
-        spaceCraftUIManager.SetMissileCount((int)missileCount);
-    }
-
-    internal Vector3 GetPos()
-    {
-        return spacecraftView.transform.position;
-    }
+    public void Destroy() => spacecraftView.Destroy();
+    public Vector3 GetPos() => spacecraftView.transform.position;
+    public void Refuel() => spacecraftModel.Refuel();
+    public void ReloadMissile() => spacecraftModel.ReloadMissile();
+    public object GetMaxSpeed() => spacecraftModel.maxSpeed;
+    public int GetMissileCapacity() => spacecraftModel.missileCapacity;
+    public int GetMaxRange() => spacecraftModel.maxRange;
 }

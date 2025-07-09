@@ -33,18 +33,6 @@ public class BuildingManager : MonoBehaviour
         return BuildingDatas;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public bool CheckedBuildingUnlocked(BuildingType entranceBuildingType)
     {
         return BuildingDatas.Exists(data => data.buildingType == entranceBuildingType && data.buildingScriptable.buildingState == BuildingState.Unlocked);
@@ -56,7 +44,6 @@ public class BuildingManager : MonoBehaviour
         if (data != null)
         {
             data.buildingScriptable.buildingState = BuildingState.Locked;
-            Debug.Log($"Building {buildingType} unlocked.");
         }
     }
 }

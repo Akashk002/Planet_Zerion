@@ -19,7 +19,7 @@ MonoBehaviour:
     to the skies and eliminate 100 enemy ships in a final showdown to secure humanity\u2019s
     future\\n\\nAll systems are online. All ships are ready.\\n\\nThis is the last
     stand. Hold the line.\\n\\nNew Spacecraft Unlocked:\\n- Frigate_4\\n- Frigate_5"
-  waveStartDelay: 180
+  waveStartDelay: 120
   spawnRate: 30
   enemySpaceCraftSpawnList: 08000000010000000300000009000000060000000000000005000000070000000200000004000000
   spacecraftUnlockList: 0800000009000000

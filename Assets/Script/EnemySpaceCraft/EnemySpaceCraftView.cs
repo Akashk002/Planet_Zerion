@@ -30,9 +30,7 @@ public class EnemySpaceCraftView : MonoBehaviour
         while (true)
         {
             Transform initialTrans = shootPoints[Random.Range(0, shootPoints.Count)];
-
             Vector3 targetPos;
-
             // First, check if player is within 100 meters
             SpacecraftController spacecraftController = GameService.Instance.spacecraftService.GetSpacecraftController(); // Assumes a method that returns the player's transform
             if (spacecraftController != null)
@@ -60,11 +58,9 @@ public class EnemySpaceCraftView : MonoBehaviour
 
             enemySpaceCraftController.Shoot(initialTrans, targetPos);
 
-            yield return new WaitForSeconds(shootInterval);
+            yield return new WaitForSeconds(enemySpaceCraftController.GetFireInteral());
         }
     }
-
-
 
     private void OnDisable()
     {

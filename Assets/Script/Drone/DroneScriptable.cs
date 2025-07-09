@@ -7,7 +7,6 @@ public class DroneScriptable : ScriptableObject
 {
     public DroneType droneType;
     public DroneView droneView;
-    public float droneBattery;
     public float droneBatteryDecRate;
     public float droneBatteryChargingTime;
 

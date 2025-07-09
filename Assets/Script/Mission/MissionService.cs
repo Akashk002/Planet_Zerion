@@ -110,6 +110,7 @@ public class MissionService
 
     public void StartNextMission()
     {
+        GameService.Instance.missileService.DeactivateAllMissile();
         currentMissionIndex++;
         LoadMission(currentMissionIndex);
     }

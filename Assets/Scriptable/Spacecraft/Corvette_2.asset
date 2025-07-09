@@ -15,10 +15,10 @@ MonoBehaviour:
   spacecraftType: 1
   spacecraftView: {fileID: -4406730676619056594, guid: e90e4d6cf59c4cd4c9b3f6c461bba160, type: 3}
   health: 100
-  missileType: 3
-  missileCapacity: 15
-  maxRange: 100
-  maxSpeed: 100
+  missileType: 1
+  missileCapacity: 10
+  maxRange: 60
+  maxSpeed: 115
   verticalSpeed: 5
   brakeSpeed: 1
   accelerationSpeed: 1
@@ -26,5 +26,5 @@ MonoBehaviour:
   mouseSensitivity: 0.75
   maxPitch: 80
   spacecraftSprite: {fileID: -1329518585, guid: f182c9c11ec28df42a81a99e5661bfd1, type: 3}
-  spacecraftStatus: 3
+  spacecraftStatus: 0
   rocksRequire: 2

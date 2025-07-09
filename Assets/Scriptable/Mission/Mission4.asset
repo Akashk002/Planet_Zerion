@@ -21,7 +21,7 @@ MonoBehaviour:
     lines and forward bases\\nThis mission will test your combat piloting skills.
     Strike hard and return safely.\\n\\nNew Spacecraft Unlocked:\\n- Frigate_2\\n-
     Frigate_3"
-  waveStartDelay: 180
+  waveStartDelay: 120
   spawnRate: 30
   enemySpaceCraftSpawnList: 0400000007000000010000000300000000000000060000000200000005000000
   spacecraftUnlockList: 0600000007000000
