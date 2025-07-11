@@ -44,7 +44,7 @@ public class SpacecraftController
     {
         if (state != State.Activate) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             AimAtTarget();
             FireMissileAtTarget();
@@ -167,6 +167,7 @@ public class SpacecraftController
             Transform shootPoint = spacecraftView.GetShootTransform();
             GameService.Instance.missileService.CreateMissile(spacecraftModel.missileType, shootPoint, currentTargetPosition, false);
             spacecraftModel.SetMissileCount(spacecraftModel.missileCount);
+            Debug.Log($"Spacecraft shooting at target: {currentTargetPosition} with missile type: {spacecraftModel.missileType}");
         }
     }
 

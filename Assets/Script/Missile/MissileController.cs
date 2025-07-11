@@ -7,7 +7,6 @@ public class MissileController : MonoBehaviour
     public MissileType missileType;
 
     private Vector3 targetPosition;
-    private bool isTargetReached = false;
 
     private bool isLaunching = false;
     private bool isTurning = false;
@@ -45,7 +44,6 @@ public class MissileController : MonoBehaviour
 
         launchTime = 0f;
         timeSinceLaunch = 0f;
-        isTargetReached = false;
 
         if (enableTurning)
         {
@@ -99,12 +97,12 @@ public class MissileController : MonoBehaviour
         Vector3 dir = (targetPosition - missileView.transform.position);
 
         // Check if target reached (within threshold distance)
-        if (dir.magnitude <= 1f) // you can adjust 1f to something like 0.5f or 2f
-        {
-            isTracking = false;
-            Destroy();
-            return;
-        }
+        //if (dir.magnitude <= 1f) // you can adjust 1f to something like 0.5f or 2f
+        //{
+        //isTracking = false;
+        //Destroy();
+        //return;
+        //}
 
         dir.Normalize();
         missileView.transform.position += dir * missileScriptable.moveSpeed * Time.deltaTime;

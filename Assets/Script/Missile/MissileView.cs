@@ -23,10 +23,11 @@ public class MissileView : MonoBehaviour
     {
         EnemySpaceCraftView enemySpaceCraftView;
 
+        Debug.Log($"Missile hit0: {other.gameObject.name} , missile name {missileController.missileScriptable.name}");
         if (other.gameObject.TryGetComponent(out enemySpaceCraftView) && playerMissile)
         {
+            Debug.Log($" Missile hit1: {other.gameObject.name} , missile name {missileController.missileScriptable.name}");
             enemySpaceCraftView.TakeDamage(missileController.GetDamage());
-            Debug.Log($"player Missile hit: {other.gameObject.name} , missile name {missileController.missileScriptable.name}");
         }
 
         SpacecraftView spacecraftView;
@@ -34,7 +35,7 @@ public class MissileView : MonoBehaviour
         if (other.gameObject.TryGetComponent(out spacecraftView) && !playerMissile)
         {
             spacecraftView.Destroy();
-            UIManager.Instance.ShowMissionFailedPanel();
+            UIManager.Instance.ShowMissionFailedPanelWithDelay();
             Debug.Log($"enemy Missile hit: {other.gameObject.name} , missile name {missileController.missileScriptable.name}");
         }
 

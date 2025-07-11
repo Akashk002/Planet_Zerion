@@ -86,6 +86,7 @@ public class EnemySpaceCraftController
     {
         bool EnableTurning = isTargetReached;
         GameService.Instance.missileService.CreateMissile(enemySpaceCraftScriptable.missileType, initialTrans, targetPos, EnableTurning);
+        Debug.Log($"Enemy Spacecraft shooting at target: {targetPos} with missile type: {enemySpaceCraftScriptable.missileType}");
     }
 
     internal void TakeDamage(float damage)

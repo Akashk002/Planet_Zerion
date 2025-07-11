@@ -89,10 +89,10 @@ public class MissionService
 
             if (currentMissionIndex >= missionDatas.Count - 1)
             {
-                UIManager.Instance.ShowGameCompletePanelWithDelay(3);
+                UIManager.Instance.ShowGameCompletePanelWithDelay();
                 return;
             }
-            UIManager.Instance.ShowMissionCompletePanelWithDelay(3);
+            UIManager.Instance.ShowMissionCompletePanelWithDelay();
         }
     }
 

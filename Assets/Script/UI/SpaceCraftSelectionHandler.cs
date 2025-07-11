@@ -122,13 +122,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
             return true;
         }
 
-        return true;
-        // return false;
-    }
-    private void SpendRock()
-    {
-        int rockRequire = spacecraftScriptable.rocksRequire;
-        GameService.Instance.playerController.SpendRock(rockRequire);
+        return false;
     }
 
     private void Select()
@@ -149,7 +143,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
         if (spacecraftScriptable.spacecraftStatus == SpacecraftStatus.Unlocked || spacecraftScriptable.spacecraftStatus == SpacecraftStatus.Locked && CanPuchase())
         {
             Select();
-            SpendRock();
+            GameService.Instance.playerController.SpendRock(spacecraftScriptable.rocksRequire);
             GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.Select, transform.position);
         }
     }

@@ -6,7 +6,6 @@ public class EnemySpaceCraftView : MonoBehaviour
 {
     [SerializeField] private List<Transform> shootPoints;
     private EnemySpaceCraftController enemySpaceCraftController;
-    private float shootInterval = 3f;
     private Coroutine shootCoroutine;
 
     // Update is called once per frame
@@ -37,7 +36,7 @@ public class EnemySpaceCraftView : MonoBehaviour
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, spacecraftController.GetPos());
 
-                Debug.Log($"Distance to player: {distanceToPlayer}");
+                //Debug.Log($"Distance to player: {distanceToPlayer}");
 
                 if (distanceToPlayer <= GameService.Instance.EnemyHitPlayerDistance)
                 {

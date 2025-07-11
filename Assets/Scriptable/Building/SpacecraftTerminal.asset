@@ -17,4 +17,4 @@ MonoBehaviour:
     spacecraft. It provides essential data and preparation before space missions.
   buildingIcon: {fileID: 1456724743, guid: 855182fe44e89954b9391cf362ea66a1, type: 3}
   buildingState: 2
-  rockRequire: 10
+  rockRequire: 20

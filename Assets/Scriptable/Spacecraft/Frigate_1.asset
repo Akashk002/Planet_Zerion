@@ -27,4 +27,4 @@ MonoBehaviour:
   maxPitch: 80
   spacecraftSprite: {fileID: 785522155, guid: 179d4016fa8952c4da44a644fb574913, type: 3}
   spacecraftStatus: 3
-  rocksRequire: 2
+  rocksRequire: 12

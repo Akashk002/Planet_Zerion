@@ -18,4 +18,4 @@ MonoBehaviour:
     safety.'
   buildingIcon: {fileID: 2118493960, guid: 352696391daa3a94cb65049a4314bad2, type: 3}
   buildingState: 2
-  rockRequire: 5
+  rockRequire: 10

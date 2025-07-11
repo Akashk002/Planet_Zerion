@@ -11,7 +11,7 @@ public class ResourceWarehouseRoomPanel : MonoBehaviour
 
     [Header("SpaceCraft Data")]
     [SerializeField] private Image image;
-    [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI Name;
     [SerializeField] private TextMeshProUGUI decription;
 
 
@@ -65,7 +65,7 @@ public class ResourceWarehouseRoomPanel : MonoBehaviour
     private void SetBuildingData()
     {
         image.sprite = buildingScriptable.buildingIcon;
-        name.text = SplitCamelCase(buildingScriptable.buildingType.ToString());
+        Name.text = SplitCamelCase(buildingScriptable.buildingType.ToString());
         decription.text = buildingScriptable.description;
         SetSelectButtonText();
     }
@@ -96,7 +96,7 @@ public class ResourceWarehouseRoomPanel : MonoBehaviour
             return true;
         }
 
-        return true;
+        return false;
     }
 
     private void OnSelectButtonClicked()
@@ -104,6 +104,7 @@ public class ResourceWarehouseRoomPanel : MonoBehaviour
         if (buildingScriptable.buildingState == BuildingState.Locked && CanPuchase())
         {
             buildingScriptable.buildingState = BuildingState.Unlocked;
+            GameService.Instance.playerController.SpendRock(buildingScriptable.rockRequire);
             GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.Select, transform.position);
             SetSelectButtonText();
         }

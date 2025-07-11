@@ -28,7 +28,7 @@ public class GameService : GenericMonoSingleton<GameService>
     // Start is called before the first frame update
     void Start()
     {
-        //missionService = new MissionService(missionDatas);
+        missionService = new MissionService(missionDatas);
 
         PlayerModel playerModel = new PlayerModel(PlayerScriptable);
         playerController = new PlayerController(playerView, playerModel);

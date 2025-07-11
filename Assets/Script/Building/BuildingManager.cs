@@ -18,7 +18,7 @@ public class BuildingManager : MonoBehaviour
 
         if (buildingsDamage >= 1000)
         {
-            UIManager.Instance.ShowMissionFailedPanel();
+            UIManager.Instance.ShowMissionFailedPanelWithDelay();
         }
     }
 

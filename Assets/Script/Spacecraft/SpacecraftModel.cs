@@ -40,13 +40,13 @@ public class SpacecraftModel
 
     public void SetRange(float value)
     {
-        range -= Time.deltaTime * value * 0.001f;
+        range -= Time.deltaTime * value * 0.01f;
         Mathf.Clamp(range, 0f, spacecraftScriptable.maxRange);
         spaceCraftUIManager.SetRangeRemaining((int)range);
 
         if (range <= 0)
         {
-            UIManager.Instance.ShowMissionFailedPanel();
+            UIManager.Instance.ShowMissionFailedPanelWithDelay();
         }
     }
 

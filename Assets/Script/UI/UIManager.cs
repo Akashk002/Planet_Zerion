@@ -76,13 +76,18 @@ public class UIManager : GenericMonoSingleton<UIManager>
         missionDescription.SetText(missionDesc.Replace("\\n", "\n"));
     }
 
+    public void ShowMissionFailedPanelWithDelay(int value = 2)
+    {
+        Invoke(nameof(ShowMissionFailedPanel), value);
+    }
+
     public void ShowMissionFailedPanel()
     {
         PlayPauseGame();
         missionFailedPanel.SetActive(true);
     }
 
-    public void ShowGameCompletePanelWithDelay(int value)
+    public void ShowGameCompletePanelWithDelay(int value = 2)
     {
         Invoke(nameof(ShowGameCompletePanel), value);
     }
@@ -93,7 +98,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
         gameCompletePanel.SetActive(true);
     }
 
-    public void ShowMissionCompletePanelWithDelay(int value)
+    public void ShowMissionCompletePanelWithDelay(int value = 2)
     {
         Invoke(nameof(ShowMissionCompletePanel), value);
     }

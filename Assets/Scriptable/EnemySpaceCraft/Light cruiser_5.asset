@@ -15,6 +15,6 @@ MonoBehaviour:
   enemySpaceCraftType: 9
   enemySpaceCraftView: {fileID: 3500809671774984904, guid: 2186cd3f199ea5f45a34fce71d399ec8, type: 3}
   missileType: 13
-  health: 100
+  health: 300
   moveSpeed: 100
-  fireRate: 5
+  fireInterval: 5
