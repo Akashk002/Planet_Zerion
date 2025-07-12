@@ -8,6 +8,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private List<Building> TargetBuildings = new List<Building>();
     [SerializeField] private List<BuildingData> BuildingDatas = new List<BuildingData>();
     private int buildingsDamage = 0;
+    private int BuildingMaxDamage = 2000;
 
     public void AddDamage(int val)
     {
@@ -16,7 +17,7 @@ public class BuildingManager : MonoBehaviour
         int percentage = buildingsDamage / 10;
         UIManager.Instance.ShowWarning(percentage);
 
-        if (buildingsDamage >= 1000)
+        if (buildingsDamage >= BuildingMaxDamage)
         {
             UIManager.Instance.ShowMissionFailedPanelWithDelay();
         }

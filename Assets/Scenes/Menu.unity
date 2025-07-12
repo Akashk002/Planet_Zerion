@@ -1103,8 +1103,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "W \u2013 Accelerate\nS \u2013 Brake / Decelerate\nA / D \u2013 Increase
-    / Decrease Altitude\nMouse Movement \u2013 Rotate View\nLeft Mouse Click \u2013
-    Fire Weapons\nRight Mouse Click \u2013 Adjust Aim / Targeting\n\n\n"
+    / Decrease Altitude\nMouse Movement \u2013 Rotate View\nF  \u2013 Fire Weapons\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -2699,8 +2698,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "W / S \u2013 Move Forward / Backward\nA / D \u2013 Increase / Decrease
-    Altitude\nMouse Movement \u2013 Rotate View\nF \u2013 Toggle Surveillance Mode
-    (Security Drone only)\n"
+    Altitude\nMouse Movement \u2013 Rotate View\nE \u2013 Collect Rocks\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}

@@ -21,6 +21,7 @@ public enum InstructionType
     CarryBagpack,
     EnterRoom,
     StorageFull,
-    Roomlocked
+    Roomlocked,
+    NoEnoughRocks
 }
 

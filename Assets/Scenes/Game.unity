@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 520f90514b808d54fb949b7bb03165b9, type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -2677,8 +2677,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "W / S \u2013 Move Forward / Backward\nA / D \u2013 Increase / Decrease
-    Altitude\nMouse Movement \u2013 Rotate View\nF \u2013 Toggle Surveillance Mode
-    (Security Drone only)\n"
+    Altitude\nMouse Movement \u2013 Rotate View\nE \u2013 Collect Rocks\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -11147,6 +11146,8 @@ MonoBehaviour:
     instructionSciprtableObject: {fileID: 11400000, guid: 617fae8a046b2a74e87c5617033e9e3c, type: 2}
   - instructionType: 4
     instructionSciprtableObject: {fileID: 11400000, guid: 2c2becb0dd75b944693a92a1bb10e18d, type: 2}
+  - instructionType: 5
+    instructionSciprtableObject: {fileID: 11400000, guid: 492cfaf52fc60cf44855d7fcc9908bd8, type: 2}
   objectnameText: {fileID: 1885314952}
   instructionsText: {fileID: 905921309}
   objectNameDisplayDuration: 3
@@ -15710,7 +15711,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -15729,13 +15730,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6340559, y: 0, z: 0, w: 0.7732873}
+  m_LocalRotation: {x: 0.65540016, y: 0, z: 0, w: 0.7552818}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 78.7, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 81.9, y: 0, z: 0}
 --- !u!1 &705566695
 GameObject:
   m_ObjectHideFlags: 0
@@ -22911,8 +22912,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.088536546, y: -0.000000034136995, z: 0.0000000030342873, w: 0.996073}
-  m_LocalPosition: {x: 1007.78, y: 3.1948295, z: 993.05756}
+  m_LocalRotation: {x: -0.11563479, y: -0.000000011982667, z: -0.0000000013949709, w: 0.9932918}
+  m_LocalPosition: {x: 1007.78, y: 1.4676423, z: 994.3017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33372,8 +33373,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "W \u2013 Accelerate\nS \u2013 Brake / Decelerate\nA / D \u2013 Increase
-    / Decrease Altitude\nMouse Movement \u2013 Rotate View\nLeft Mouse Click \u2013
-    Fire Weapons\nRight Mouse Click \u2013 Adjust Aim / Targeting\n\n\n"
+    / Decrease Altitude\nMouse Movement \u2013 Rotate View\nF  \u2013 Fire Weapons\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -46225,7 +46225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 379377300}
-  Name: {fileID: 0}
+  Name: {fileID: 1827378855}
   decription: {fileID: 208394976}
   selectButton: {fileID: 1106778643}
   buildingStatus: {fileID: 927562036}

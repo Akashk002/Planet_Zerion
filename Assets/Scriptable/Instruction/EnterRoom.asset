@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InstructionType: 2
   Instruction: 'Press "E" to Enter '
-  DisplayDuration: 5
+  DisplayDuration: 2
   WaitToTriggerDuration: 0

@@ -59,7 +59,7 @@ public class SpaceCraftUIManager : MonoBehaviour
     public void BackToRoom()
     {
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
-        GameService.Instance.spacecraftService.GetSpacecraftController().Deactivate();
+        GameService.Instance.spacecraftService.RemovePreviousSpacecraft();
         UIManager.Instance.SpaceCraftSelectionPanel.SetActive(true);
         gameObject.SetActive(false);
     }

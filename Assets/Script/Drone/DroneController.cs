@@ -95,7 +95,7 @@ public class DroneController
             }
         }
 
-        if (isRotating || Input.GetMouseButton(0))
+        if (isRotating)
             ApplyRotation();
 
         HandleZoom();

@@ -114,7 +114,7 @@ public class SpacecraftController
         }
 
         // --- Rotation by Mouse ---
-        if (isRotating || Input.GetMouseButton(1))
+        if (isRotating)
         {
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");

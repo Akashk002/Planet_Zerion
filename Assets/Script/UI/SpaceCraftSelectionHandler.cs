@@ -121,7 +121,7 @@ public class SpaceCraftSelectionHandler : MonoBehaviour
         {
             return true;
         }
-
+        UIManager.Instance.GetInfoHandler().ShowInstruction(InstructionType.NoEnoughRocks);
         return false;
     }
 

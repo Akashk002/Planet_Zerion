@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InstructionType: 4
   Instruction: This room is locked
-  DisplayDuration: 3
+  DisplayDuration: 2
   WaitToTriggerDuration: 0

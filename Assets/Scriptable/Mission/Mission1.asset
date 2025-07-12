@@ -22,8 +22,10 @@ MonoBehaviour:
     such as the Spacecraft Terminal.\\n\\nAt the Spacecraft Terminal, you can:\\n-
     Unlock available spacecraft\\n- Select and enter your chosen ship\\n\\nStart
     gathering resources and prepare to expand your operations\u2014the defense of
-    the colony begins now.\\n\\nSpacecraft Unlocked:\\n- Corvette_1\\n- Corvette_2 "
-  waveStartDelay: 60
+    the colony begins now.\\n\\nSpacecraft Unlocked:\\n- Corvette_1\\n- Corvette_2
+    \\n\\nWarning: Don't get too close to the enemy  they will attack your spacecraft
+    with missiles. "
+  waveStartDelay: 90
   spawnRate: 30
   enemySpaceCraftSpawnList: 0000000001000000
   spacecraftUnlockList: 0000000001000000

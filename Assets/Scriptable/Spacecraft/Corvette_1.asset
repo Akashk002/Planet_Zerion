@@ -26,5 +26,5 @@ MonoBehaviour:
   mouseSensitivity: 0.75
   maxPitch: 80
   spacecraftSprite: {fileID: -2098678395, guid: 9d7ecaef58793c040bc04ec23e685083, type: 3}
-  spacecraftStatus: 3
+  spacecraftStatus: 1
   rocksRequire: 2
