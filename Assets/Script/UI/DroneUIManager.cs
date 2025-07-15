@@ -73,7 +73,7 @@ public class DroneUIManager : MonoBehaviour
 
     public void TakeRocks()
     {
-        if (currentDroneController.nearDroneControlRoom)
+        if (currentDroneController.CheckDroneNearControlRoom())
         {
             List<RockData> rockDatas = currentDroneController.GetRockDatas();
             GameService.Instance.playerController.TakeRocks(rockDatas);

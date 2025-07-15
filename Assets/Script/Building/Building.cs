@@ -6,7 +6,6 @@ using UnityEngine;
 public class Building : MonoBehaviour, IInteractable
 {
     [SerializeField] private BuildingType buildingType;
-    [SerializeField] private GameObject roomPanel;
 
     public void Interact()
     {

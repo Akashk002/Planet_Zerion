@@ -12,9 +12,9 @@ public class DroneController
     private Transform initialPosition;
     private DroneState droneState;
     private AudioSource audioSource;
+    private bool nearDroneControlRoom;
 
     public bool IsInteracted;
-    public bool nearDroneControlRoom;
 
     public DroneController(DroneModel droneModel)
     {
@@ -163,14 +163,14 @@ public class DroneController
     }
 
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
-    public bool ChecknearDroneControlRoom() => nearDroneControlRoom;
+    public bool CheckDroneNearControlRoom() => nearDroneControlRoom;
+    public bool SetDroneNearControlRoom(bool near) => nearDroneControlRoom = near;
     public DroneType GetDronetype() => droneModel.droneType;
     public DroneState GetDroneState() => droneState;
     public float GetAltitude() => droneView.transform.position.y;
     public float GetBattery() => droneModel.droneBattery;
     public List<RockData> GetRockDatas() => droneModel.rockDatas;
     public void AddRock(RockType rockType) => droneModel.AddRock(rockType, droneView.transform.position);
-
 }
 
 public enum DroneState

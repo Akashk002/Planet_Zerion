@@ -14,7 +14,7 @@ public class BuildingManager : MonoBehaviour
     {
         buildingsDamage += val;
 
-        int percentage = buildingsDamage / 10;
+        int percentage = buildingsDamage * 100 / BuildingMaxDamage;
         UIManager.Instance.ShowWarning(percentage);
 
         if (buildingsDamage >= BuildingMaxDamage)

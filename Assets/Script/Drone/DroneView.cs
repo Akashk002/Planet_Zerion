@@ -28,7 +28,7 @@ public class DroneView : MonoBehaviour, ITriggerObject
 
         if (gameObject.GetComponent<Entrance>() && gameObject.GetComponent<Entrance>().GetEntranceBuildingType() == BuildingType.DroneControlRoom)
         {
-            controller.nearDroneControlRoom = true;
+            controller.SetDroneNearControlRoom(true);
         }
     }
 
@@ -59,7 +59,7 @@ public class DroneView : MonoBehaviour, ITriggerObject
 
         if (gameObject.GetComponent<Entrance>() && gameObject.GetComponent<Entrance>().GetEntranceBuildingType() == BuildingType.DroneControlRoom)
         {
-            controller.nearDroneControlRoom = false;
+            controller.SetDroneNearControlRoom(false);
         }
     }
 }

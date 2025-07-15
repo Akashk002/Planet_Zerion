@@ -8,7 +8,6 @@ public class SpawnPoints : MonoBehaviour
 {
     [SerializeField] private List<SpawnPointData> spawnPoints = new List<SpawnPointData>();
     private List<SpawnPointData> tempSpawnPoints = new List<SpawnPointData>();
-    private bool DetectEnemySpawnSignal;
 
     private void Start()
     {
@@ -38,15 +37,6 @@ public class SpawnPoints : MonoBehaviour
         }
 
         return spawnPointData;
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SpawnPointData spawnPoint = GetspawnPoint();
-            GameService.Instance.enemySpaceCraftService.CreateEnemySpaceCraft(EnemySpaceCraftType.Destroyer_1, spawnPoint.initialTransform.position, spawnPoint.targetTransform.position);
-        }
     }
 }
 

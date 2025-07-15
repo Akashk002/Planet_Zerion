@@ -29,8 +29,6 @@ public class SpacecraftController
         spacecraftView.rb.freezeRotation = true;
         spacecraftModel.Refuel();
         spacecraftModel.ReloadMissile();
-        // Lock cursor for mouse look
-        //Cursor.lockState = CursorLockMode.Locked;
 
         // Initialize rotation values from current orientation
         Vector3 euler = spacecraftView.transform.eulerAngles;

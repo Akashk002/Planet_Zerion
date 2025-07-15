@@ -5,7 +5,6 @@ using UnityEngine;
 public class VFXService
 {
     private VFXPool vfxPool;
-
     public VFXService(VFXView vfxPrefab) => vfxPool = new VFXPool(vfxPrefab);
 
     public void PlayVFXAtPosition(VFXType type, Vector3 spawnPosition)

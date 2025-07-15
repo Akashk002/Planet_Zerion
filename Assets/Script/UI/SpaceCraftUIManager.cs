@@ -29,8 +29,10 @@ public class SpaceCraftUIManager : MonoBehaviour
     {
         spacecraftController = GameService.Instance.spacecraftService.GetSpacecraftController();
         ShowAndHideBtn(true);
-        SetMissileCount(spacecraftController.GetMissileCapacity());
-        SetRangeRemaining(spacecraftController.GetMaxRange());
+        maxMissile = spacecraftController.GetMissileCapacity();
+        maxRange = spacecraftController.GetMaxRange();
+        SetMissileCount(maxMissile);
+        SetRangeRemaining(maxRange);
         SetAltitude(0); // Assuming initial altitude is 0
         SetSpeed(0); // Assuming initial speed is 0
         maxSpeedTxt.SetText(spacecraftController.GetMaxSpeed().ToString());

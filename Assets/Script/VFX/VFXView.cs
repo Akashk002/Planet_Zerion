@@ -25,7 +25,9 @@ public class VFXView : MonoBehaviour
                 currentPlayingVFX = item.particleSystem;
             }
             else
+            {
                 item.particleSystem.gameObject.SetActive(false);
+            }
         }
     }
 
