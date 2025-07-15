@@ -61,13 +61,10 @@ public class MinimapIconFollow : MonoBehaviour
             elapsedTime += blinkInterval;
         }
 
-        targetImage.enabled = false; // Ensure the image is hidden after blinking
-        blinkCoroutine = null; // Reset coroutine reference
-        targetImage = null; // Reset target image reference
+        targetImage.enabled = false;
+        blinkCoroutine = null;
+        targetImage = null;
 
-        // Ensure it stays visible after blinking
-        //if (targetImage != null)
-        // targetImage.enabled = true;
     }
 }
 

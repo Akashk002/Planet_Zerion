@@ -26,7 +26,7 @@ public class Building : MonoBehaviour, IInteractable
         );
     }
 
-    internal void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         GameService.Instance.buildingManager.AddDamage((int)damage);
     }

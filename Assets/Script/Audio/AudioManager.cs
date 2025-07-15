@@ -106,7 +106,6 @@ public class AudioManager : MonoBehaviour
 
 
 [Serializable]
-
 public class SoundData
 {
     public GameAudioType gameAudioType;
@@ -123,22 +122,22 @@ public enum SoundType
 
 public enum GameAudioType
 {
-    ClickButton,//
-    CollectRock,//
-    DroneMoving,//
-    Emergency,//
-    EnemySpacecraftMoving,//
-    EnterRoom,//
-    EnvironmentBG,//
-    ExitRoom,//
-    MissileBlastBig,//
-    MissileBlastSmall,//
-    MissileLaunch,//
+    ClickButton,
+    CollectRock,
+    DroneMoving,
+    Emergency,
+    EnemySpacecraftMoving,
+    EnterRoom,
+    EnvironmentBG,
+    ExitRoom,
+    MissileBlastBig,
+    MissileBlastSmall,
+    MissileLaunch,
     MissionComplete,
     MissionFailed,
-    PlayerRun,//
-    PlayerWalk,//
-    Select,//
-    ShowInstruction,//
-    SpacecraftMoving,//
+    PlayerRun,
+    PlayerWalk,
+    Select,
+    ShowInstruction,
+    SpacecraftMoving,
 }
