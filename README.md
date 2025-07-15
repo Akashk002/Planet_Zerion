@@ -1,5 +1,5 @@
-Game play Video 1 - 
-Game Play Video 2 -
+Game play Video 1 - https://youtu.be/cnXapdjFZbY
+Game Play Video 2 - https://youtu.be/mtRuq7owL0g
 
 Game Story :-                                           
 
