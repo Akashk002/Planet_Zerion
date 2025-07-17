@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class JDAM2 : MissileController
 {
     public JDAM2(MissileScriptable missileScriptable) : base(missileScriptable)

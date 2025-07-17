@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class EnemySpaceCraftPool : GenericObjectPool<EnemySpaceCraftController>
 {
@@ -13,7 +11,7 @@ public class EnemySpaceCraftPool : GenericObjectPool<EnemySpaceCraftController>
         this.enemySpaceCraftDatas = enemySpaceCraftDatas;
         this.enemySpaceCraftType = enemySpaceCraftType;
 
-        var item = pooledItems.Find(p => !p.isUsed && p.Item.enemySpaceCraftType == enemySpaceCraftType);
+        var item = pooledItems.Find(p => !p.isUsed && p.Item.GetEnemySpaceCraftType() == enemySpaceCraftType);
 
         if (item != null)
         {

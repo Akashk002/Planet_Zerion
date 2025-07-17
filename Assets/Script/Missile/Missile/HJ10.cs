@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class HJ10 : MissileController
 {
     public HJ10(MissileScriptable missileScriptable) : base(missileScriptable)

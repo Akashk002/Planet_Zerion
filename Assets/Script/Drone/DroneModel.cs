@@ -34,7 +34,6 @@ public class DroneModel
         droneUIManager = UIManager.Instance.droneUIManager;
     }
 
-
     public void AddRock(RockType rockType, Vector3 pos)
     {
         if (GetTotalRock() < droneScriptable.RockStorageCapacity)

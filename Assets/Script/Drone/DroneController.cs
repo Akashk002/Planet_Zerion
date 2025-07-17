@@ -83,7 +83,10 @@ public class DroneController
                 audioSource = GameService.Instance.audioManager.PlayLoopingAt(GameAudioType.DroneMoving, droneView.transform.position, 1);
             }
             else
+            {
                 audioSource.transform.position = droneView.transform.position;
+            }
+
             UIManager.Instance.droneUIManager.SetAltitude((int)droneView.transform.position.y);
         }
         else
@@ -96,7 +99,9 @@ public class DroneController
         }
 
         if (isRotating)
+        {
             ApplyRotation();
+        }
 
         HandleZoom();
     }

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class TY90 : MissileController
 {
     public TY90(MissileScriptable missileScriptable) : base(missileScriptable)
