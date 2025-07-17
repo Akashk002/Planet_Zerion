@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 public class EventService
 {
     private static EventService instance;
@@ -15,20 +14,13 @@ public class EventService
         }
     }
 
-    public EventController OnRideSpaceCraft { get; private set; }
-    public EventController<string> OnCollideObject { get; private set; }
-    public EventController<InstructionType> OnCollideRock { get; private set; }
-    //public EventController<DefenderType, Vector3, bool> OnPlaceDefender { get; private set; }
-    //public EventController<AttackerType, Slot, AttackerController> OnSpawnAttacker { get; private set; }
+    //public EventController OnRideSpaceCraft { get; private set; }
 
 
     public EventService()
     {
-        OnRideSpaceCraft = new EventController();
-        OnCollideObject = new EventController<string>();
-        OnCollideRock = new EventController<InstructionType>();
-        //OnPlaceDefender = new EventController<DefenderType, Vector3, bool>();
-        //OnSpawnAttacker = new EventController<AttackerType, Slot, AttackerController>();
+        // OnRideSpaceCraft = new EventController();
+
     }
 }
 public class EventController<T, K, R>
