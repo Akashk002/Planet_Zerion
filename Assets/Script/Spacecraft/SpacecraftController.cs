@@ -8,10 +8,17 @@ public class SpacecraftController
     private SpacecraftModel spacecraftModel;
     private Transform initialTransform;
     private State state;
-    private Vector3 currentTargetPosition;
+    private Vector3? currentTargetPosition = null; // Nullable type
 
     private AudioSource audioSource;
     private float moveSpeed;
+
+    // Add to class fields
+    private Vector3 cachedMoveDirection;
+    private Quaternion cachedTargetRotation;
+    private bool hasMovementInput;
+    private bool hasRotationInput;
+
 
     public SpacecraftController(SpacecraftModel spacecraftModel)
     {
@@ -45,14 +52,17 @@ public class SpacecraftController
             FireMissileAtTarget();
         }
 
-        Move();
+        ProcessInput(); // New method
     }
 
-    private void Move()
+
+    private void ProcessInput()
     {
         Vector3 moveDirection = Vector3.zero;
+        hasMovementInput = false;
+        hasRotationInput = false;
 
-        // --- Throttle Forward/Backward ---
+        // --- Forward/Backward Input ---
         bool isAccelerating = Input.GetKey(KeyCode.W) && moveSpeed < spacecraftModel.maxSpeed;
         bool isBraking = Input.GetKey(KeyCode.S) && moveSpeed > 0;
 
@@ -60,7 +70,6 @@ public class SpacecraftController
         {
             moveSpeed += spacecraftModel.accelerationSpeed;
             isRotating = true;
-
             spacecraftModel.SetSpeed((int)moveSpeed);
         }
         else if (isBraking)
@@ -69,26 +78,53 @@ public class SpacecraftController
             spacecraftModel.SetSpeed((int)moveSpeed);
         }
 
-        // --- Forward Movement ---
         moveDirection += spacecraftView.transform.forward * moveSpeed;
         spacecraftModel.SetRange(moveSpeed);
 
-        // --- Vertical Movement ---
         if (Input.GetKey(KeyCode.A))
         {
             moveDirection += spacecraftView.transform.up * spacecraftModel.verticalSpeed;
         }
-
         if (Input.GetKey(KeyCode.D))
         {
             moveDirection -= spacecraftView.transform.up * spacecraftModel.verticalSpeed;
         }
 
-        // --- Apply Velocity ---
-        spacecraftView.rb.velocity = moveDirection;
+        // Store movement input
+        cachedMoveDirection = moveDirection;
+        hasMovementInput = moveDirection != Vector3.zero;
         spacecraftModel.SetAltitude((int)spacecraftView.transform.position.y);
 
-        if (moveDirection != Vector3.zero)
+        // --- Mouse Rotation Input ---
+        if (isRotating)
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+
+            yaw += mouseX * spacecraftModel.rotationSpeed * spacecraftModel.mouseSensitivity * Time.fixedDeltaTime;
+            pitch -= mouseY * spacecraftModel.rotationSpeed * spacecraftModel.mouseSensitivity * Time.fixedDeltaTime;
+            pitch = Mathf.Clamp(pitch, -spacecraftModel.maxPitch, spacecraftModel.maxPitch);
+
+            cachedTargetRotation = Quaternion.Euler(pitch, yaw, 0f);
+            hasRotationInput = true;
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if (state != State.Activate) return;
+
+        // Apply movement
+        spacecraftView.rb.velocity = cachedMoveDirection;
+
+        // Apply rotation
+        if (hasRotationInput)
+        {
+            spacecraftView.rb.MoveRotation(cachedTargetRotation);
+        }
+
+        // Audio logic (optional, or move to LateUpdate)
+        if (hasMovementInput)
         {
             if (audioSource == null || !audioSource.isPlaying)
             {
@@ -107,21 +143,8 @@ public class SpacecraftController
                 audioSource = null;
             }
         }
-
-        // --- Rotation by Mouse ---
-        if (isRotating)
-        {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
-
-            yaw += mouseX * spacecraftModel.rotationSpeed * spacecraftModel.mouseSensitivity * Time.fixedDeltaTime;
-            pitch -= mouseY * spacecraftModel.rotationSpeed * spacecraftModel.mouseSensitivity * Time.fixedDeltaTime;
-            pitch = Mathf.Clamp(pitch, -spacecraftModel.maxPitch, spacecraftModel.maxPitch);
-
-            Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
-            spacecraftView.rb.MoveRotation(targetRotation);
-        }
     }
+
 
     public void Activate()
     {
@@ -141,28 +164,31 @@ public class SpacecraftController
 
     private void AimAtTarget()
     {
-        // Get layer mask that excludes "Player"
         int playerLayer = LayerMask.NameToLayer("Player");
-        int ignorePlayerMask = ~(1 << playerLayer); // Invert to ignore Player
+        int ignorePlayerMask = ~(1 << playerLayer);
 
-        // Get ray from camera center
         Ray ray = spacecraftView.Camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 5000f, ignorePlayerMask))
         {
             currentTargetPosition = hit.point;
         }
+        else
+        {
+            currentTargetPosition = null; // Reset
+        }
     }
 
     private void FireMissileAtTarget()
     {
+        if (currentTargetPosition == null) return; // No valid target
+
         if (spacecraftModel.missileCount > 0)
         {
             spacecraftModel.missileCount--;
             Transform shootPoint = spacecraftView.GetShootTransform();
-            GameService.Instance.missileService.CreateMissile(spacecraftModel.missileType, shootPoint, currentTargetPosition, false);
+            GameService.Instance.missileService.CreateMissile(spacecraftModel.missileType, shootPoint, currentTargetPosition.Value, false);
             spacecraftModel.SetMissileCount(spacecraftModel.missileCount);
-            Debug.Log($"Spacecraft shooting at target: {currentTargetPosition} with missile type: {spacecraftModel.missileType}");
         }
     }
 

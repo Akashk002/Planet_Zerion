@@ -14,6 +14,12 @@ public class DroneController
     private AudioSource audioSource;
     private bool nearDroneControlRoom;
 
+    private Vector3 cachedMoveDir;
+    private Quaternion cachedRotation;
+    private bool hasMovementInput = false;
+    private bool hasRotationInput = false;
+
+
     public bool IsInteracted;
 
     public DroneController(DroneModel droneModel)
@@ -38,18 +44,20 @@ public class DroneController
     public void Update()
     {
         if (droneState == DroneState.Activate)
-            HandleMovement();
+            ProcessInput(); // Only handle input
 
         if (GetDronetype() == DroneType.SecurityDrone && droneState == DroneState.Surveillance)
             PerformSurveillance();
 
-        Interact(); // for non-surveillance drones
+        Interact();
     }
 
-    private void HandleMovement()
+
+    private void ProcessInput()
     {
         Vector3 moveDir = Vector3.zero;
-        isRotating = false;
+        hasMovementInput = false;
+        hasRotationInput = false;
 
         bool forward = Input.GetKey(KeyCode.W);
         bool backward = Input.GetKey(KeyCode.S);
@@ -74,9 +82,40 @@ public class DroneController
         if (up) moveDir += droneView.transform.up * droneModel.verticalSpeed;
         if (down) moveDir -= droneView.transform.up * droneModel.verticalSpeed;
 
-        droneView.rb.velocity = moveDir;
+        cachedMoveDir = moveDir;
+        hasMovementInput = moveDir != Vector3.zero;
 
-        if (moveDir != Vector3.zero)
+        if (isRotating)
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+
+            yaw += mouseX * droneModel.rotationSpeed * droneModel.mouseSensitivity * Time.fixedDeltaTime;
+            pitch -= mouseY * droneModel.rotationSpeed * droneModel.mouseSensitivity * Time.fixedDeltaTime;
+            pitch = Mathf.Clamp(pitch, -droneModel.maxPitch, droneModel.maxPitch);
+
+            cachedRotation = Quaternion.Euler(pitch, yaw, 0f);
+            hasRotationInput = true;
+        }
+
+        HandleZoom();
+    }
+
+    public void FixedUpdate()
+    {
+        if (droneState != DroneState.Activate) return;
+
+        // Apply movement
+        droneView.rb.velocity = cachedMoveDir;
+
+        // Apply rotation
+        if (hasRotationInput)
+        {
+            droneView.rb.MoveRotation(cachedRotation);
+        }
+
+        // Handle audio
+        if (hasMovementInput)
         {
             if (audioSource == null || !audioSource.isPlaying)
             {
@@ -97,26 +136,6 @@ public class DroneController
                 audioSource = null;
             }
         }
-
-        if (isRotating)
-        {
-            ApplyRotation();
-        }
-
-        HandleZoom();
-    }
-
-    private void ApplyRotation()
-    {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
-
-        yaw += mouseX * droneModel.rotationSpeed * droneModel.mouseSensitivity * Time.fixedDeltaTime;
-        pitch -= mouseY * droneModel.rotationSpeed * droneModel.mouseSensitivity * Time.fixedDeltaTime;
-        pitch = Mathf.Clamp(pitch, -droneModel.maxPitch, droneModel.maxPitch);
-
-        Quaternion targetRot = Quaternion.Euler(pitch, yaw, 0f);
-        droneView.rb.MoveRotation(targetRot);
     }
 
     public void Activate()

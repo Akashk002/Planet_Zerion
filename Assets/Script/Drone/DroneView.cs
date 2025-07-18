@@ -11,6 +11,14 @@ public class DroneView : MonoBehaviour, ITriggerObject
         this.controller = controller;
     }
 
+    private void FixedUpdate()
+    {
+        if (controller != null)
+        {
+            controller.FixedUpdate();
+        }
+    }
+
     private void Update()
     {
         if (controller != null)

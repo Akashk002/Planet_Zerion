@@ -17,6 +17,14 @@ public class SpacecraftView : MonoBehaviour
         Camera = Camera.main;
     }
 
+    private void FixedUpdate()
+    {
+        if (controller != null)
+        {
+            controller.FixedUpdate();
+        }
+    }
+
     private void Update()
     {
         if (controller != null)

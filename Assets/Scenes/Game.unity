@@ -10657,7 +10657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!1 &485619491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a9dcfe0fe190c84e87379539c99ebfd, type: 3}
@@ -14327,7 +14326,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
-  roomPanel: {fileID: 0}
 --- !u!65 &648859746
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22583,7 +22581,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 0
-  roomPanel: {fileID: 0}
 --- !u!135 &943628406
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -31847,7 +31844,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 14
-  roomPanel: {fileID: 0}
 --- !u!135 &1306031992
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -46065,7 +46061,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 7
-  roomPanel: {fileID: 0}
 --- !u!1001 &1927685862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49687,7 +49682,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 7
-  roomPanel: {fileID: 0}
 --- !u!1 &2091587319
 GameObject:
   m_ObjectHideFlags: 0
@@ -51431,7 +51425,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 11
-  roomPanel: {fileID: 0}
 --- !u!4 &2659252033397880809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 34bc2dcc35b291349b4b5f90bee05299, type: 3}
@@ -51568,7 +51561,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 12
-  roomPanel: {fileID: 0}
 --- !u!4 &3325650712993010573
 Transform:
   m_ObjectHideFlags: 0
@@ -51647,7 +51639,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 7
-  roomPanel: {fileID: 0}
 --- !u!4 &3561592682215651748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c2561e92b2d5a834d976856c6881adc9, type: 3}
@@ -51755,7 +51746,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!65 &3833694030092890985
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51790,7 +51780,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
-  roomPanel: {fileID: 0}
 --- !u!4 &3929804266480796084
 Transform:
   m_ObjectHideFlags: 0
@@ -51867,7 +51856,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
-  roomPanel: {fileID: 0}
 --- !u!1 &4121752124336944215 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 36da0dd47c10e6e4a88b68050cb9c4fa, type: 3}
@@ -51908,7 +51896,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 10
-  roomPanel: {fileID: 0}
 --- !u!4 &4166940159402575229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e3b799ec7fd30f440b5b4f62e206161c, type: 3}
@@ -51954,7 +51941,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 9
-  roomPanel: {fileID: 0}
 --- !u!1 &4190178341265367838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c2561e92b2d5a834d976856c6881adc9, type: 3}
@@ -51995,7 +51981,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 4
-  roomPanel: {fileID: 0}
 --- !u!1 &4241869707572168025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e3b799ec7fd30f440b5b4f62e206161c, type: 3}
@@ -52036,7 +52021,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!1 &4450304668141574926
 GameObject:
   m_ObjectHideFlags: 0
@@ -52436,7 +52420,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!64 &7553898314223761958
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -52472,7 +52455,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!4 &7558856996871017530
 Transform:
   m_ObjectHideFlags: 0
@@ -52523,7 +52505,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 0
-  roomPanel: {fileID: 0}
 --- !u!33 &7713406456700178193
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -52567,7 +52548,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!1 &7725451892404663542 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e3b799ec7fd30f440b5b4f62e206161c, type: 3}
@@ -52608,7 +52588,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 7
-  roomPanel: {fileID: 0}
 --- !u!33 &7893175080928921972
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -52662,7 +52641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!1 &8311335652057055534 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f7296ff58a5eda4ea2520171a36bcb9, type: 3}
@@ -52718,7 +52696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 6
-  roomPanel: {fileID: 0}
 --- !u!1 &8682772334948456120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cea6f68f6ca65a4d94e60f162033b61, type: 3}
@@ -52758,7 +52735,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
-  roomPanel: {fileID: 0}
 --- !u!23 &8695704034803642197
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -52846,7 +52822,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 13
-  roomPanel: {fileID: 0}
 --- !u!64 &9137084563429855957
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -52882,7 +52857,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  roomPanel: {fileID: 0}
 --- !u!64 &9190372591537716418
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -52918,7 +52892,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 8
-  roomPanel: {fileID: 0}
 --- !u!4 &9195897301176387569 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1f9f88aaaf25d2e4b8275313aa3e6e56, type: 3}
@@ -52959,7 +52932,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 6
-  roomPanel: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
