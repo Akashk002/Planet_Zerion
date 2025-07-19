@@ -13,41 +13,44 @@ public class MissilePool : GenericObjectPool<MissileController>
 
     protected override MissileController CreateItem<T>()
     {
-        if (typeof(T) == typeof(AGM65))
-            return new AGM65(missileScriptable);
-        else if (typeof(T) == typeof(AGM114))
-            return new AGM114(missileScriptable);
-        else if (typeof(T) == typeof(AIM7))
-            return new AIM7(missileScriptable);
-        else if (typeof(T) == typeof(AIM9))
-            return new AIM9(missileScriptable);
-        else if (typeof(T) == typeof(GBU12b))
-            return new GBU12b(missileScriptable);
-        else if (typeof(T) == typeof(HJ10))
-            return new HJ10(missileScriptable);
-        else if (typeof(T) == typeof(JDAM))
-            return new JDAM(missileScriptable);
-        else if (typeof(T) == typeof(JDAM2))
-            return new JDAM2(missileScriptable);
-        else if (typeof(T) == typeof(KAB500L))
-            return new KAB500L(missileScriptable);
-        else if (typeof(T) == typeof(Kh29))
-            return new Kh29(missileScriptable);
-        else if (typeof(T) == typeof(PL11))
-            return new PL11(missileScriptable);
-        else if (typeof(T) == typeof(PL112))
-            return new PL112(missileScriptable);
-        else if (typeof(T) == typeof(R27))
-            return new R27(missileScriptable);
-        else if (typeof(T) == typeof(R272))
-            return new R272(missileScriptable);
-        else if (typeof(T) == typeof(R77))
-            return new R77(missileScriptable);
-        else if (typeof(T) == typeof(TY90))
-            return new TY90(missileScriptable);
-
-        else
-            throw new NotSupportedException($"Power-up type '{typeof(T)}' is not supported.");
+        switch (typeof(T))
+        {
+            case Type t when t == typeof(AGM65):
+                return new AGM65(missileScriptable);
+            case Type t when t == typeof(AGM114):
+                return new AGM114(missileScriptable);
+            case Type t when t == typeof(AIM7):
+                return new AIM7(missileScriptable);
+            case Type t when t == typeof(AIM9):
+                return new AIM9(missileScriptable);
+            case Type t when t == typeof(GBU12b):
+                return new GBU12b(missileScriptable);
+            case Type t when t == typeof(HJ10):
+                return new HJ10(missileScriptable);
+            case Type t when t == typeof(JDAM):
+                return new JDAM(missileScriptable);
+            case Type t when t == typeof(JDAM2):
+                return new JDAM2(missileScriptable);
+            case Type t when t == typeof(KAB500L):
+                return new KAB500L(missileScriptable);
+            case Type t when t == typeof(Kh29):
+                return new Kh29(missileScriptable);
+            case Type t when t == typeof(PL11):
+                return new PL11(missileScriptable);
+            case Type t when t == typeof(PL112):
+                return new PL112(missileScriptable);
+            case Type t when t == typeof(R27):
+                return new R27(missileScriptable);
+            case Type t when t == typeof(R272):
+                return new R272(missileScriptable);
+            case Type t when t == typeof(R77):
+                return new R77(missileScriptable);
+            case Type t when t == typeof(TY90):
+                return new TY90(missileScriptable);
+            default:
+                throw new NotSupportedException($"Power-up type '{typeof(T)}' is not supported.");
+                break;
+        }
     }
 
     public List<MissileController> GetAllMissiles()

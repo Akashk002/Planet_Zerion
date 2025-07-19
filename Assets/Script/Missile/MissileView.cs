@@ -52,4 +52,10 @@ public class MissileView : MonoBehaviour
         GameService.Instance.audioManager.PlayOneShotAt(gameAudioType, transform.position);
         gameObject.SetActive(false);
     }
+
+    public void Disable()
+    {
+        GameService.Instance.missileService.ReturnDefenderPool(missileController);
+        gameObject.SetActive(false);
+    }
 }

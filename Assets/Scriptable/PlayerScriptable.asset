@@ -18,7 +18,7 @@ MonoBehaviour:
   gravity: -9.81
   rockDatas:
   - RockType: 0
-    rockCount: 1
+    rockCount: 0
   - RockType: 1
     rockCount: 0
   - RockType: 2
@@ -28,7 +28,7 @@ MonoBehaviour:
   - RockType: 4
     rockCount: 0
   - RockType: 5
-    rockCount: 2
+    rockCount: 0
   maxTiredness: 50
   tiredness: 0
   tirednessIncRate: 0.0001

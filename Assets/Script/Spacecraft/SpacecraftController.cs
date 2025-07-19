@@ -191,8 +191,7 @@ public class SpacecraftController
             spacecraftModel.SetMissileCount(spacecraftModel.missileCount);
         }
     }
-
-    public void Destroy() => spacecraftView.Destroy();
+    public void Disable() => spacecraftView.Disable();
     public Vector3 GetPos() => spacecraftView.transform.position;
     public void Refuel() => spacecraftModel.Refuel();
     public void ReloadMissile() => spacecraftModel.ReloadMissile();

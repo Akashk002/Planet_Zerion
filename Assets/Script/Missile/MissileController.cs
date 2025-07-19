@@ -96,14 +96,6 @@ public class MissileController : MonoBehaviour
     {
         Vector3 dir = (targetPosition - missileView.transform.position);
 
-        // Check if target reached (within threshold distance)
-        //if (dir.magnitude <= 1f) // you can adjust 1f to something like 0.5f or 2f
-        //{
-        //isTracking = false;
-        //Destroy();
-        //return;
-        //}
-
         dir.Normalize();
         missileView.transform.position += dir * missileScriptable.moveSpeed * Time.deltaTime;
         missileView.transform.rotation = Quaternion.LookRotation(dir);
@@ -112,6 +104,11 @@ public class MissileController : MonoBehaviour
     public void Destroy()
     {
         missileView.Destroy();
+    }
+
+    public void Disable()
+    {
+        missileView.Disable();
     }
 
     public float GetDamage()

@@ -81,4 +81,9 @@ public class SpacecraftView : MonoBehaviour
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.MissileBlastBig, transform.position);
         gameObject.SetActive(false);
     }
+
+    public void Disable()
+    {
+        gameObject.SetActive(false);
+    }
 }

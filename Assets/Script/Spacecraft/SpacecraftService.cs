@@ -14,7 +14,7 @@ public class SpacecraftService
     {
         if (spacecraftController != null)
         {
-            spacecraftController.Destroy();
+            spacecraftController.Disable();
             spacecraftController = null;
         }
     }

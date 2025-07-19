@@ -84,7 +84,7 @@ public class MissileService
     {
         foreach (var missile in missilePool.GetAllMissiles())
         {
-            missile.Destroy();
+            missile.Disable();
         }
     }
 

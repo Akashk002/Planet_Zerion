@@ -3,33 +3,42 @@ using System.Collections.Generic;
 
 public class EnemySpaceCraftPool : GenericObjectPool<EnemySpaceCraftController>
 {
-    private List<EnemySpaceCraftData> enemySpaceCraftDatas;
-    private EnemySpaceCraftType enemySpaceCraftType;
+    private EnemySpaceCraftScriptable enemySpaceCraftScriptable;
 
-    public EnemySpaceCraftController GetEnemySpaceCraft<T>(List<EnemySpaceCraftData> enemySpaceCraftDatas, EnemySpaceCraftType enemySpaceCraftType) where T : EnemySpaceCraftController
+    public EnemySpaceCraftController GetEnemySpaceCraft<T>(EnemySpaceCraftScriptable enemySpaceCraftScriptable) where T : EnemySpaceCraftController
     {
-        this.enemySpaceCraftDatas = enemySpaceCraftDatas;
-        this.enemySpaceCraftType = enemySpaceCraftType;
-
-        var item = pooledItems.Find(p => !p.isUsed && p.Item.GetEnemySpaceCraftType() == enemySpaceCraftType);
-
-        if (item != null)
-        {
-            item.isUsed = true;
-            return item.Item;
-        }
-
+        this.enemySpaceCraftScriptable = enemySpaceCraftScriptable;
         return GetItem<T>();
     }
 
     protected override EnemySpaceCraftController CreateItem<T>()
     {
-        EnemySpaceCraftScriptable enemySpaceCraftScriptable = enemySpaceCraftDatas.Find(m => m.enemySpaceCraftType == enemySpaceCraftType).enemySpaceCraftScriptable;
-
-        if (typeof(T) == typeof(EnemySpaceCraftController))
-            return new EnemySpaceCraftController(enemySpaceCraftScriptable);
-        else
-            throw new NotSupportedException($"This type '{typeof(T)}' is not supported.");
+        switch (typeof(T))
+        {
+            case Type t when t == typeof(Destroyer_1):
+                return new Destroyer_1(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Destroyer_2):
+                return new Destroyer_2(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Destroyer_3):
+                return new Destroyer_3(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Destroyer_4):
+                return new Destroyer_4(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Destroyer_5):
+                return new Destroyer_5(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Lightcruiser_1):
+                return new Lightcruiser_1(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Lightcruiser_2):
+                return new Lightcruiser_2(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Lightcruiser_3):
+                return new Lightcruiser_3(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Lightcruiser_4):
+                return new Lightcruiser_4(enemySpaceCraftScriptable);
+            case Type t when t == typeof(Lightcruiser_5):
+                return new Lightcruiser_5(enemySpaceCraftScriptable);
+            default:
+                throw new NotSupportedException($"This type '{typeof(T)}' is not supported.");
+                break;
+        }
     }
 }
 

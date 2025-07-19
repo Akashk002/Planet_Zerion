@@ -23,6 +23,11 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        takeRestButton.interactable = true;
+    }
+
     public void UpdateRockCount()
     {
         List<RockData> rockDatas = playerController.GetRockDatas();
@@ -42,6 +47,7 @@ public class PlayerUIManager : MonoBehaviour
     public void TakeRest()
     {
         GameService.Instance.audioManager.PlayOneShotAt(GameAudioType.ClickButton, transform.position);
+        takeRestButton.interactable = false;
         playerController.TakeRest();
     }
 
